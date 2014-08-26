@@ -129,7 +129,7 @@ func (list *LinkedList) RemoveAt(index int) {
 		} else {
 			current_node := list.head
 			for i := 0; i < index; i++ {
-        		current_node = current_node.next
+				current_node = current_node.next
 			}
 			prev_node := current_node.prev
 			next_node := current_node.next
