@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type node struct {
 	value interface{}
@@ -164,7 +162,7 @@ func (list *LinkedList) RemoveLast() {
 	list.size--
 }
 
-
+// Test:
 func main() {
 	list := &LinkedList{}
 	list.AddToLast("D")
