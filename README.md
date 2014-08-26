@@ -1,4 +1,4 @@
 Go-Algorithms
 =============
 
-Data Structure &amp; Algorithms demos for Golang.
+Data Structures &amp; Algorithms demos for Golang.
