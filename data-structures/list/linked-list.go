@@ -18,18 +18,18 @@ func (list *LinkedList) Size() int {
 	return list.size
 }
 
-func (list *LinkedList) Get(index int) interface{} {
-	if index < 0 || (index >= list.size && list.size > 0) {
-		panic("Invalid index.")
+func (list *LinkedList) Reverse() {
+	if list.tail == nil {
+		panic("Empty list.")
 	}
-	if list.head == nil {
-		return nil
+	current_node := list.tail
+	list.head = current_node
+	for current_node.prev != nil {
+		current_node.prev = current_node.next
+		current_node.next = current_node.prev
+		current_node = current_node.prev
 	}
-	current_node := list.head
-	for i := 0; i < index; i++ {
-		current_node = current_node.next
-	}
-	return current_node.value
+	list.tail = current_node
 }
 
 func (list *LinkedList) IndexOf(value interface{}) int {
@@ -47,6 +47,20 @@ func (list *LinkedList) IndexOf(value interface{}) int {
 		}
 	}
 	return -1
+}
+
+func (list *LinkedList) Get(index int) interface{} {
+	if index < 0 || (index >= list.size && list.size > 0) {
+		panic("Invalid index.")
+	}
+	if list.head == nil {
+		return nil
+	}
+	current_node := list.head
+	for i := 0; i < index; i++ {
+		current_node = current_node.next
+	}
+	return current_node.value
 }
 
 func (list *LinkedList) GetFirst() interface{} {
@@ -175,6 +189,7 @@ func main() {
 	list.RemoveFirst()
 	list.RemoveLast()
 	list.RemoveAt(2)
+	list.Reverse()
 	size := list.Size()
 	for i := 0; i < size; i++ {
 		fmt.Printf("%d : %s\n", i, list.Get(i))
