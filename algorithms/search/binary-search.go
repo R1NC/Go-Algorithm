@@ -8,7 +8,7 @@ func recursion_binary_search(sorted_array []int, target int) int {
 	if right < left {
 		panic("Empty array.")
 	}
-	return search(sorted_array, atrget, left, right)
+	return search(sorted_array, target, left, right)
 }
 
 func search(sorted_array []int, target int, left int, right int) int {
@@ -16,9 +16,9 @@ func search(sorted_array []int, target int, left int, right int) int {
 	if sorted_array[middle] == target {
 		return middle
 	} else if sorted_array[middle] < target {
-		search(middle + 1, right)
+		return search(sorted_array, target, middle + 1, right)
 	} else {
-		search(left, middle - 1)
+		return search(sorted_array, target, left, middle - 1)
 	}
 }
 
@@ -42,11 +42,11 @@ func non_recursion_binary_search(sorted_array []int, target int) int {
 }
 
 func main() {
-	sorted_array := [...]int{1, 3, 5, 7, 9, 11, 13, 15}
+	sorted_array := []int{1, 3, 5, 7, 9, 11, 13, 15}
 	x := 11
-	for x := range sorted_array {
+	for _, x := range sorted_array {
 		fmt.Printf("%d ", x)
 	}
-	fmt.Printf("\n recursion_binary_search '%d\n': %d", x, recursion_binary_search(x))
-	fmt.Printf("non_recursion_binary_search '%d': %d\n", x, non_recursion_binary_search(x))
+	fmt.Printf("\nrecursion_binary_search '%d': %d\n", x, recursion_binary_search(sorted_array, x))
+	fmt.Printf("non_recursion_binary_search '%d': %d\n", x, non_recursion_binary_search(sorted_array, x))
 }
