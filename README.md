@@ -3,8 +3,8 @@ Data Structures
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go)
 ```go
 func (list *LinkedList) Size() int
-func (list *LinkedList) IndexOf(value interface{}) int
 func (list *LinkedList) Reverse()
+func (list *LinkedList) IndexOf(value interface{}) int
 func (list *LinkedList) Get(index int) interface{}
 func (list *LinkedList) GetFirst() interface{}
 func (list *LinkedList) GetLast() interface{}
