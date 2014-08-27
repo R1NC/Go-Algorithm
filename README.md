@@ -1,6 +1,6 @@
 Data Structures
 =============
-* LinkedList
+* [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go)
 ```go
 func (list *LinkedList) Size() int
 func (list *LinkedList) IndexOf(value interface{}) int
