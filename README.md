@@ -1,6 +1,6 @@
 Data Structures
 ===============
-* [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go)
+* [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go):
 ```go
 func (list *LinkedList) Size() int
 func (list *LinkedList) Reverse()
@@ -15,14 +15,14 @@ func (list *LinkedList) RemoveAt(index int)
 func (list *LinkedList) RemoveFirst()
 func (list *LinkedList) RemoveLast()
 ```
-* [LinkedStack](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/stack/linked-stack.go)
+* [LinkedStack](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/stack/linked-stack.go):
 ```go
 func (stack *LinkedStack) Size() int
 func (stack *LinkedStack) Push(value interface{})
 func (stack *LinkedStack) Pop()
 func (stack *LinkedStack) Peek() interface{}
 ```
-* [LinkedQueue](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/queue/linked-queue.go)
+* [LinkedQueue](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/queue/linked-queue.go):
 ```go
 func (queue *LinkedQueue) Size() int
 func (queue *LinkedQueue) Add(value interface{})
@@ -31,7 +31,7 @@ func (queue *LinkedQueue) Peek() interface{}
 ```
 Search Algorithms
 ==========
-* [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go)
+* [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
 ```go
 func recursion_binary_search(sorted_array []int, target int) int
 func non_recursion_binary_search(sorted_array []int, target int) int
