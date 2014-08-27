@@ -50,7 +50,7 @@ func main() {
 	stack.Push("Symbian")
 	stack.Push("BalckBerry")
 	for stack.Size() > 0 {
-		fmt.Printf("%s", stack.Peek())
+		fmt.Printf("%s\n", stack.Peek())
 		stack.Pop()
 	}
 }
