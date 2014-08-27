@@ -49,35 +49,46 @@ func (list *LinkedList) IndexOf(value interface{}) int {
 	return -1
 }
 
+func (list *LinkedList) getNodeAt(index int) *node{
+	current_node := nil
+	if index + 1 <= list.size / 2 {
+		current_node = list.head
+		for i := 0; i < index; i++ {
+			current_node = current_node.next
+		}
+	} else {
+		current_node = list.tail
+		for i := list.size - 1; i > index; i-- {
+			current_node = current_node.prev
+		}
+	}
+	return current_node
+}
+
 func (list *LinkedList) Get(index int) interface{} {
 	if index < 0 || (index >= list.size && list.size > 0) {
 		panic("Invalid index.")
 	}
 	if list.head == nil {
-		return nil
+		panic("Empty list.")
 	}
-	current_node := list.head
-	for i := 0; i < index; i++ {
-		current_node = current_node.next
-	}
-	return current_node.value
+	return list.getNodeAt(index).value
 }
 
 func (list *LinkedList) GetFirst() interface{} {
 	if list.head == nil {
-		return nil
+		panic("Empty list.")
 	}
 	return list.head.value
 }
 
 func (list *LinkedList) GetLast() interface{} {
 	if list.tail == nil {
-		return nil
+		panic("Empty list.")
 	}
 	return list.tail.value
 }
 
-// 'index' should start with 0;
 func (list *LinkedList) Add(value interface{}, index int) {
 	if index < 0 || (index > list.size && list.size > 0) {
 		panic("Invalid index.")
@@ -90,12 +101,9 @@ func (list *LinkedList) Add(value interface{}, index int) {
 			panic("Empty list and invalid index.")
 		} else {
 			new_node := &node{value, nil, nil}
-			current_node := list.head
-			for i := 0; i < index; i++ {
-				current_node = current_node.next
-			}
-			prev_node := current_node.prev
-			next_node := current_node
+			target_node := list.getNodeAt(index)
+			prev_node := target_node.prev
+			next_node := target_node
 			prev_node.next = new_node
 			new_node.prev = prev_node
 			new_node.next = next_node
@@ -141,14 +149,11 @@ func (list *LinkedList) RemoveAt(index int) {
 		if list.size == 0 {
 			panic("Empty list and invalid index.")
 		} else {
-			current_node := list.head
-			for i := 0; i < index; i++ {
-				current_node = current_node.next
-			}
-			prev_node := current_node.prev
-			next_node := current_node.next
-			current_node.prev = nil
-			current_node.next = nil
+			target_node := list.getNodeAt(index)
+			prev_node := target_node.prev
+			next_node := target_node.next
+			target_node.prev = nil
+			target_node.next = nil
 			prev_node.next = next_node
 			next_node.prev = prev_node
 			list.size--
