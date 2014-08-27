@@ -205,7 +205,6 @@ func (list *LinkedList) RemoveLast() {
 	last_node = nil
 }
 
-// Test:
 func main() {
 	list := &LinkedList{}
 	list.AddToLast("D")
