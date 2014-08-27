@@ -27,12 +27,15 @@ func (list *LinkedList) Reverse() {
 	list.head = list.tail
 	list.tail = tmp_node
 	tmp_node = nil
+	var prev_node *node
 	for current_node != nil {
-		prev_node := current_node.prev
+		prev_node = current_node.prev
 		current_node.prev = current_node.next
 		current_node.next = prev_node
 		current_node = prev_node
 	}
+	prev_node = nil
+	current_node = nil
 }
 
 func (list *LinkedList) IndexOf(value interface{}) int {
@@ -43,12 +46,14 @@ func (list *LinkedList) IndexOf(value interface{}) int {
 	index := 0
 	for current_node.next != nil {
 		if value == current_node.value {
+			current_node = nil
 			return index
 		} else {
 			current_node = current_node.next
 			index++
 		}
 	}
+	current_node = nil
 	return -1
 }
 
@@ -74,7 +79,10 @@ func (list *LinkedList) Get(index int) interface{} {
 	if list.head == nil {
 		panic("Empty list.")
 	}
-	return list.getNodeAt(index).value
+	target_node := list.getNodeAt(index)
+	value := target_node.value
+	target_node = nil
+	return value
 }
 
 func (list *LinkedList) GetFirst() interface{} {
@@ -111,6 +119,10 @@ func (list *LinkedList) Add(value interface{}, index int) {
 			new_node.next = next_node
 			next_node.prev = new_node
 			list.size++
+			new_node = nil
+			target_node = nil
+			prev_node = nil
+			next_node = nil
 		}
 	}
 }
@@ -125,6 +137,7 @@ func (list *LinkedList) AddToFirst(value interface{}) {
 		list.head = new_node
 	}
 	list.size++
+	new_node = nil
 }
 
 func (list *LinkedList) AddToLast(value interface{}) {
@@ -137,6 +150,7 @@ func (list *LinkedList) AddToLast(value interface{}) {
 		list.tail = new_node
 	}
 	list.size++
+	new_node = nil
 }
 
 func (list *LinkedList) RemoveAt(index int) {
@@ -160,6 +174,9 @@ func (list *LinkedList) RemoveAt(index int) {
 			prev_node.next = next_node
 			next_node.prev = prev_node
 			list.size--
+			target_node = nil
+			prev_node = nil
+			next_node = nil
 		}
 	}
 }
@@ -173,6 +190,7 @@ func (list *LinkedList) RemoveFirst() {
 	first_node.next = nil
 	first_node.value = nil
 	list.size--
+	first_node = nil
 }
 
 func (list *LinkedList) RemoveLast() {
@@ -184,6 +202,7 @@ func (list *LinkedList) RemoveLast() {
 	last_node.prev = nil
 	last_node.value = nil
 	list.size--
+	last_node = nil
 }
 
 // Test:
