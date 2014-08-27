@@ -23,18 +23,21 @@ func (list *LinkedList) Reverse() {
 		panic("Empty list.")
 	}
 	current_node := list.tail
-	list.head = current_node
-	for current_node.prev != nil {
+	tmp_node := list.head
+	list.head = list.tail
+	list.tail = tmp_node
+	tmp_node = nil
+	for current_node != nil {
+		prev_node := current_node.prev
 		current_node.prev = current_node.next
-		current_node.next = current_node.prev
-		current_node = current_node.prev
+		current_node.next = prev_node
+		current_node = prev_node
 	}
-	list.tail = current_node
 }
 
 func (list *LinkedList) IndexOf(value interface{}) int {
 	if list.head == nil {
-		return -1
+		panic("Empty list.")
 	}
 	current_node := list.head
 	index := 0
@@ -50,9 +53,8 @@ func (list *LinkedList) IndexOf(value interface{}) int {
 }
 
 func (list *LinkedList) getNodeAt(index int) *node{
-	current_node := nil
+	current_node := list.head
 	if index + 1 <= list.size / 2 {
-		current_node = list.head
 		for i := 0; i < index; i++ {
 			current_node = current_node.next
 		}
@@ -154,6 +156,7 @@ func (list *LinkedList) RemoveAt(index int) {
 			next_node := target_node.next
 			target_node.prev = nil
 			target_node.next = nil
+			target_node.value = nil
 			prev_node.next = next_node
 			next_node.prev = prev_node
 			list.size--
@@ -168,6 +171,7 @@ func (list *LinkedList) RemoveFirst() {
 	first_node := list.head
 	list.head = first_node.next
 	first_node.next = nil
+	first_node.value = nil
 	list.size--
 }
 
@@ -178,6 +182,7 @@ func (list *LinkedList) RemoveLast() {
 	last_node := list.tail
 	list.tail = last_node.prev
 	last_node.prev = nil
+	last_node.value = nil
 	list.size--
 }
 
@@ -194,9 +199,15 @@ func main() {
 	list.RemoveFirst()
 	list.RemoveLast()
 	list.RemoveAt(2)
+	for i := 0; i < list.Size(); i++ {
+        	fmt.Printf("%d : %s\n", i, list.Get(i))
+	}
+	fmt.Printf("Index of 'E': %d\n", list.IndexOf("E"))
+	fmt.Printf("First: %s\n", list.GetFirst())
+	fmt.Printf("Last: %s\n", list.GetLast())
+	fmt.Println("Reversing...")
 	list.Reverse()
-	size := list.Size()
-	for i := 0; i < size; i++ {
+	for i := 0; i < list.Size(); i++ {
 		fmt.Printf("%d : %s\n", i, list.Get(i))
 	}
 	fmt.Printf("Index of 'E': %d\n", list.IndexOf("E"))
