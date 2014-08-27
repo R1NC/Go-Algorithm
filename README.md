@@ -1,5 +1,5 @@
 Data Structures
-=============
+===============
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go)
 ```go
 func (list *LinkedList) Size() int
@@ -28,4 +28,11 @@ func (queue *LinkedQueue) Size() int
 func (queue *LinkedQueue) Add(value interface{})
 func (queue *LinkedQueue) Remove()
 func (queue *LinkedQueue) Peek() interface{}
+```
+Search Algorithms
+==========
+* [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go)
+```go
+func recursion_binary_search(sorted_array []int, target int) int
+func non_recursion_binary_search(sorted_array []int, target int) int
 ```
