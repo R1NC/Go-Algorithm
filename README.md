@@ -22,3 +22,10 @@ func (stack *LinkedStack) Push(value interface{})
 func (stack *LinkedStack) Pop()
 func (stack *LinkedStack) Peek() interface{}
 ```
+* [LinkedQueue](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/queue/linked-queue.go)
+```go
+func (queue *LinkedQueue) Size() int
+func (queue *LinkedQueue) Add(value interface{})
+func (queue *LinkedQueue) Remove()
+func (queue *LinkedQueue) Peek() interface{}
+```
