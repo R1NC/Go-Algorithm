@@ -58,6 +58,6 @@ func main() {
 	queue.Add("D")
 	for queue.size > 0 {
         	fmt.Printf("%s\n", queue.Peek())
-        	stack.Remove()
+        	queue.Remove()
 	}
 }
