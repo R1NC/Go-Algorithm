@@ -60,7 +60,7 @@ func FlagSwapPositionBubbleSort(array []int) {
 	last_swap_position := len(array)
 	for i := 0; i < len(array); i++ {
 		// After the last swapping at x, [x, n] is sorted.
-		// So we just need to sort [0, x] in next scanning
+		// So we just need to sort [0, x] in the next scanning.
 		flag = last_swap_position
 		has_swapped = false
 		for j := 1; j < flag; j++ {
