@@ -43,7 +43,7 @@ func FlagSwapBubbleSort(array []int) {
 			}
 			//compare++
 		}
-		// if last scan has not swapped, the array is sorted.
+		// if the last scanning has no swapping, the array is sorted.
 		// Then there's no need to scan again.
 		if !has_swapped {
 			break
