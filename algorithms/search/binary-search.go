@@ -3,39 +3,39 @@ package main
 import "fmt"
 
 func recursion_binary_search(sorted_array []int, target int) int {
-	left := 0
-	right := len(sorted_array) - 1
-	if right < left {
+	low := 0
+	high := len(sorted_array) - 1
+	if high < low {
 		panic("Empty array.")
 	}
-	return search(sorted_array, target, left, right)
+	return search(sorted_array, target, low, high)
 }
 
-func search(sorted_array []int, target int, left int, right int) int {
-	middle := (left + right) / 2
+func search(sorted_array []int, target int, low int, high int) int {
+	middle := (low + high) / 2
 	if sorted_array[middle] == target {
 		return middle
 	} else if sorted_array[middle] < target {
-		return search(sorted_array, target, middle + 1, right)
+		return search(sorted_array, target, middle + 1, high)
 	} else {
-		return search(sorted_array, target, left, middle - 1)
+		return search(sorted_array, target, low, middle - 1)
 	}
 }
 
 func non_recursion_binary_search(sorted_array []int, target int) int {
-	left := 0
-	right := len(sorted_array) - 1
-	if right < left {
+	low := 0
+	high := len(sorted_array) - 1
+	if high < low {
 		panic("Empty array.")
 	}
-	for left <= right {
-		middle := (left + right) / 2
+	for low <= high {
+		middle := (low + high) / 2
 		if sorted_array[middle] == target {
 			return middle
 		} else if sorted_array[middle] < target {
-			left = middle + 1
+			low = middle + 1
 		} else {
-			right = middle - 1
+			high = middle - 1
 		}
 	}
 	return -1
