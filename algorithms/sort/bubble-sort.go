@@ -19,9 +19,9 @@ func swap(array []int, index1 int, index2 int) {
 func NaiveBubbleSort(array []int) {
 	checkArray(array)
 	for i := 0; i < len(array); i++ {
-		for j := 0; j < len(array) - 1; i++ {
-			if array[j] >= array[j+1] {
-				swap(array, j, j+1)
+		for j := 0; j < len(array) - 1; j++ {
+			if array[j] > array[j + 1] {
+				swap(array, j, j + 1)
 			}
 		}
 	}
@@ -36,11 +36,11 @@ func main() {
 	array := []int{21, 5, 342, 55, 9, 17, 105}
 	fmt.Println("Initial array:")
 	for _, x := range array {
-		fmt.Printf("%d ", x)
+		fmt.Printf("%d\n", x)
 	}
 	NaiveBubbleSort(array)
-	fmt.Println("\nNaiveSorted array:")
-	for _, x := range array {
-		fmt.Printf("%d ", x)
+	fmt.Println("NaiveSorted array:")
+	for _, y := range array {
+		fmt.Printf("%d\n", y)
 	}
 }
