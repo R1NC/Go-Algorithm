@@ -35,14 +35,17 @@ func FlagBubbleSort(array []int) int {
 	var compare int
 	var is_last_scan_swapped bool
 	for i := 0; i < len(array); i++ {
-		is_last_scan_swapped = false
+		is_swapped = false
 		for j := 0; j < len(array) - 1; j++ {
 			if array[j] > array[j + 1] {
 				swap(array, j, j + 1)
+				is_swapped = true
 			}
 			compare++
 		}
-		if !is_last_scan_swapped {
+		// if last scan has no swapping, the array is sorted.
+		// Then there's no need to scan again.
+		if !is_swapped {
 			break
 		}
 	}
