@@ -33,8 +33,9 @@ Sort Algorithms
 ===============
 * [BubbleSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/bubble-sort.go):
 ```go
-func NaiveBubbleSort(array []int)
-func ImprovedBubbleSort(array []int)
+func SimpleBubbleSort(array []int)
+func FlagSwapBubbleSort(array []int)
+func FlagSwapPositionBubbleSort(array []int)
 ```
 Search Algorithms
 =================
