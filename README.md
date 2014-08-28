@@ -29,10 +29,17 @@ func (queue *LinkedQueue) Add(value interface{})
 func (queue *LinkedQueue) Remove()
 func (queue *LinkedQueue) Peek() interface{}
 ```
+Sort Algorithms
+===============
+* [BubbleSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/bubble-sort.go):
+```go
+func NaiveBubbleSort(array []int)
+func ImprovedBubbleSort(array []int)
+```
 Search Algorithms
-==========
+=================
 * [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
 ```go
-func recursion_binary_search(sorted_array []int, target int) int
-func non_recursion_binary_search(sorted_array []int, target int) int
+func RecursionBinarySearch(sorted_array []int, target int) int
+func NonRecursionBinarySearch(sorted_array []int, target int) int
 ```
