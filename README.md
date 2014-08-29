@@ -37,6 +37,14 @@ func SimpleBubbleSort(array []int)
 func FlagSwapBubbleSort(array []int)
 func FlagSwapPositionBubbleSort(array []int)
 ```
+* [InsertSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/insert-sort.go)
+```go
+func InsertSort(array []int)
+```
+* [SelectSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/select-sort.go)
+```go
+func SelectSort(array []int)
+```
 * [QuickSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/quick-sort.go)
 ```go
 func QucikSort(array []int)
