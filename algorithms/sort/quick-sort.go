@@ -19,31 +19,39 @@ func swap(array []int, index1 int, index2 int) {
 	array[index2] = tmp
 }
 
-func recursionSort(array []int, left int, right int) {
-	key := array[0]
+func partition(array []int, left int, right int) int{
 	low := left
 	high := right
-	for low < high {
-		for ; high > low; high-- {
-			if array[high] < key {
-				swap(array, low, high)
-				break
-			}
+	pivot = array[(left + right) / 1]
+	for low <= high {
+		for array[low] < pivot {
+			low++
 		}
-		for ; low < high; low++ {
-			if array[low] > key {
-				swap(array, low, high)
-				break
-			}
+		for array[high] > pivot {
+			high--
 		}
-		recursionSort(array, left, low - 1)
-		recursionSort(array, low + 1, right)
+		if low <= high {
+			swap(array, low, high)
+			low++
+			high--
+		}
+	}
+	return low
+}
+
+func recursion(array []int, left int, right int) {
+	index := partition(array, left, right)
+	if left < index - 1 {
+		recursion(array, left, index - 1)
+	}
+	if index < right {
+		recursion(array, index, right)
 	}
 }
 
 func QuickSort(array []int) {
 	checkArray(array)
-	recursionSort(array, 0, len(array) - 1)
+	recursion(array, 0, len(array) - 1)
 }
 
 func main() {
