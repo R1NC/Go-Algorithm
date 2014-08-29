@@ -85,23 +85,11 @@ func main() {
 	array1 := []int{2, 1, 3, 5, 6, 4}
 	array2 := []int{2, 1, 3, 5, 6, 4}
 	array3 := []int{2, 1, 3, 5, 6, 4}
-	fmt.Println("Initial array:")
-	for _, x := range array1 {
-		fmt.Printf("%d\n", x)
-	}
-	fmt.Println("SimpleBubbleSort...")
+	fmt.Println("Initial array:", array1)
 	SimpleBubbleSort(array1)
-	for _, x := range array1 {
-		fmt.Printf("%d\n", x)
-	}
-	fmt.Println("FlagSwapBubbleSort...")
+	fmt.Println("SimpleBubbleSort:", array1)
 	FlagSwapBubbleSort(array2)
-	for _, x := range array2 {
-		fmt.Printf("%d\n", x)
-	}
-	fmt.Println("FlagSwapPositionBubbleSort...")
+	fmt.Println("FlagSwapBubbleSort:", array2)
 	FlagSwapPositionBubbleSort(array3)
-	for _, x := range array3 {
-		fmt.Printf("%d\n", x)
-	}
+	fmt.Println("FlagSwapPositionBubbleSort:", array3)
 }

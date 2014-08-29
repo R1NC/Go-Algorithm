@@ -51,10 +51,8 @@ func recursion_search(sorted_array []int, target int, low int, high int) int {
 
 func main() {
 	sorted_array := []int{1, 3, 5, 7, 9, 11, 13, 15}
+	fmt.Println("Array:", sorted_array)
 	x := 11
-	for _, x := range sorted_array {
-		fmt.Printf("%d ", x)
-	}
-	fmt.Printf("\nRecursionBinarySearch '%d': %d\n", x, RecursionBinarySearch(sorted_array, x))
+	fmt.Printf("RecursionBinarySearch '%d': %d\n", x, RecursionBinarySearch(sorted_array, x))
 	fmt.Printf("NonRecursionBinarySearch '%d': %d\n", x, NonRecursionBinarySearch(sorted_array, x))
 }

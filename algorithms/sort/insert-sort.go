@@ -36,13 +36,7 @@ func InsertSort(array []int) {
 
 func main() {
 	array := []int{5, 3, 2, 6, 4, 1}
-	fmt.Println("Initial array:")
-	for _, x := range array {
-		fmt.Printf("%d\n", x)
-	}
-	fmt.Println("InsertSort...")
+	fmt.Println("Initial array:", array)
 	InsertSort(array)
-	for _, x := range array {
-		fmt.Printf("%d\n", x)
-	}
+	fmt.Println("InsertSort:", array)
 }
