@@ -22,7 +22,7 @@ func swap(array []int, index1 int, index2 int) {
 func partition(array []int, left int, right int) int{
 	low := left
 	high := right
-	pivot = array[(left + right) / 1]
+	pivot := array[(left + right) / 2]
 	for low <= high {
 		for array[low] < pivot {
 			low++
