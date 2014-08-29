@@ -3,47 +3,62 @@ package main
 import "fmt"
 
 type BinaryTree struct {
-	value interface{}
-	left_child *BinaryTree
-	right_child *BinaryTree
+	Value int
+	LeftChild *BinaryTree
+	RightChild *BinaryTree
 }
 
-func (tree *BinaryTree) Add(value interface{}) {
-	if tree == nil {
-        tree.value = value
-        tree.left_child  = nil
-        tree.right_child = nil
+func (tree *BinaryTree) Add(value int) {
+    if tree.Value == 0 {
+        tree.Value = value
+        tree.LeftChild = &BinaryTree{}
+        tree.RightChild = &BinaryTree{}
     } else {
-        if value < tree.value {
-            tree.left_child.Insert(value)
+        if value < tree.Value {
+            tree.LeftChild.Add(value)
         } else {
-            tree.right_child.Insert(value)
+            tree.RightChild.Add(value)
         }
     }
 }
 
-func (tree *BinaryTree) Search(value interface{}) *BinaryTree {
-	if tree.value == nil {
+func (tree *BinaryTree) Search(value int) *BinaryTree {
+	if tree == nil {
         return nil
     }
-    if tree.value == value {
+    if tree.Value == value {
         return tree
     } else {
-        if value < tree.value {
-            return tree.left_child.Search(value)
+        if value < tree.Value {
+            return tree.LeftChild.Search(value)
         } else {
-            return tree.right_child.Search(value)
+            return tree.RightChild.Search(value)
         }
     }
+}
+
+func (tree *BinaryTree) Print() {
+    fmt.Printf("%d", tree.Value)
+    if tree.LeftChild == nil && tree.RightChild == nil {
+        return
+    }
+    fmt.Print("(")
+    tree.LeftChild.Print()
+    fmt.Print(",")
+    tree.RightChild.Print()
+    fmt.Print(")")
 }
 
 func main() {
 	tree := &BinaryTree{}
-	tree.Add(3)
+    tree.Add(3)
 	tree.Add(2)
 	tree.Add(5)
 	tree.Add(1)
 	tree.Add(4)
 	tree.Add(6)
-	t := tree.Search(5)
+    tree.Print()
+    fmt.Println()
+	tree.Search(5).Print()
+    fmt.Println()
 }
