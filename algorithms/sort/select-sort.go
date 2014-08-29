@@ -29,10 +29,10 @@ func SelectSort(array []int) {
 			// Find the minimal element in unsorted-part and add it to the end of sorted-part. 
 			if array[j] < array[minIndex] {
 				minIndex = j;
-			}       
-            if minIndex != i {
-                  swap(array, i, minIndex)
-            }
+			}
+			if minIndex != i {
+				swap(array, i, minIndex)
+			}
 		}
 	}
 }
