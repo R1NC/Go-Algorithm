@@ -1,3 +1,6 @@
+/*
+  Time complexity: O(N^2)
+*/
 package main
 
 import "fmt"

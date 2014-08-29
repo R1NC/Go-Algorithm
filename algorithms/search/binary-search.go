@@ -1,3 +1,7 @@
+/*
+  Time complexity: O(logN)
+*/
+
 package main
 
 import "fmt"
