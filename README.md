@@ -1,5 +1,5 @@
-Data Structures
-===============
+Linear Data Structures
+======================
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go):
 ```go
 func (list *LinkedList) Size() int
@@ -28,6 +28,13 @@ func (queue *LinkedQueue) Size() int
 func (queue *LinkedQueue) Add(value interface{})
 func (queue *LinkedQueue) Remove()
 func (queue *LinkedQueue) Peek() interface{}
+```
+Nolinear Data Structures
+========================
+* [BinaryTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-tree.go)
+```go
+func (tree *BinaryTree) Add(value interface{})
+func (tree *BinaryTree) Search(value interface{}) *BinaryTree
 ```
 Sort Algorithms
 ===============
