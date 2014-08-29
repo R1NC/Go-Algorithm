@@ -37,6 +37,10 @@ func SimpleBubbleSort(array []int)
 func FlagSwapBubbleSort(array []int)
 func FlagSwapPositionBubbleSort(array []int)
 ```
+* [QuickSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/quick-sort.go)
+```go
+func QucikSort(array []int)
+```
 Search Algorithms
 =================
 * [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
