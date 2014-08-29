@@ -29,7 +29,7 @@ func (queue *LinkedQueue) Add(value interface{})
 func (queue *LinkedQueue) Remove()
 func (queue *LinkedQueue) Peek() interface{}
 ```
-Nolinear Data Structures
+Nonlinear Data Structures
 ========================
 * [BinaryTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-tree.go)
 ```go
