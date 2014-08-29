@@ -28,7 +28,7 @@ func InsertSort(array []int) {
 		for j := i; j > 0; j-- {
 			// choose the right place in sorted-part to insert.
 			if array[j - 1] > array[j] {
-				swap(array, j - 1, j]
+				swap(array, j - 1, j)
 			}
 		}
 	}
