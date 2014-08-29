@@ -13,13 +13,11 @@ func checkArray(array []int) {
 	}
 }
 
-/*
 func swap(array []int, index1 int, index2 int) {
 	tmp := array[index1]
 	array[index1] = array[index2]
 	array[index2] = tmp
 }
-*/
 
 func recursionSort(array []int, left int, right int) {
 	key := array[0]
@@ -28,29 +26,28 @@ func recursionSort(array []int, left int, right int) {
 	for low < high {
 		for ; high > low; high-- {
 			if array[high] < key {
-				array[low] = array[high]
+				swap(array, low, high)
 				break
 			}
 		}
 		for ; low < high; low++ {
 			if array[low] > key {
-				array[high] = array[low]
+				swap(array, low, high)
 				break
 			}
 		}
-		array[low] = key
 		recursionSort(array, left, low - 1)
 		recursionSort(array, low + 1, right)
 	}
 }
 
 func QuickSort(array []int) {
-	checkArray()
+	checkArray(array)
 	recursionSort(array, 0, len(array) - 1)
 }
 
 func main() {
-	array := []int{2, 1, 3, 5, 6, 4}
+	array := []int{5, 3, 2, 6, 4, 1}
 	fmt.Println("Initial array:")
 	for _, x := range array {
 		fmt.Printf("%d\n", x)
