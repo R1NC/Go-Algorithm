@@ -85,17 +85,9 @@ func main() {
 	tree.Add(1)
 	tree.Add(4)
 	tree.Add(6)
-<<<<<<< HEAD
     tree.Print()
     fmt.Println()
 	tree.Search(5).PrintByLevel()
     fmt.Println()
 }
 */
-=======
-	tree.Print()
-	fmt.Println()
-	tree.Search(5).Print()
-	fmt.Println()
-}
->>>>>>> 9b096b56a0dda3796bef903dae5b5a978e05471a
