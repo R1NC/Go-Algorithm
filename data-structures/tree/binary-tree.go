@@ -85,9 +85,9 @@ func main() {
 	tree.Add(1)
 	tree.Add(4)
 	tree.Add(6)
-    tree.Print()
-    fmt.Println()
+	tree.Print()
+	fmt.Println()
 	tree.Search(5).PrintByLevel()
-    fmt.Println()
+	fmt.Println()
 }
 */
