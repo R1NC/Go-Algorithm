@@ -1,6 +1,9 @@
-package main
+package tree
 
-import "fmt"
+import (
+    "fmt"
+    "Go-Algorithm/data-structures/queue"
+)
 
 type BinaryTree struct {
 	Value int
@@ -49,6 +52,31 @@ func (tree *BinaryTree) Print() {
     fmt.Print(")")
 }
 
+func convertInterfaceToBinaryTreePointer(x interface{}) *BinaryTree {
+    if v, ok := x.(*BinaryTree); ok {
+        return v
+    } else {
+        panic("Type convertion exception.")
+    }
+}
+
+func (tree *BinaryTree) PrintByLevel() {
+    queue := &queue.LinkedQueue{}
+    queue.Add(tree)
+    for queue.Size() > 0 {
+        t := convertInterfaceToBinaryTreePointer(queue.Peek())
+        if t.LeftChild != nil {
+            queue.Add(t.LeftChild)
+        }
+        if t.RightChild != nil {
+            queue.Add(t.RightChild)
+        }
+        fmt.Printf("%d ", t.Value)
+        queue.Remove()
+    }
+}
+
+/*
 func main() {
 	tree := &BinaryTree{}
     tree.Add(3)
@@ -59,6 +87,7 @@ func main() {
 	tree.Add(6)
     tree.Print()
     fmt.Println()
-	tree.Search(5).Print()
+	tree.Search(5).PrintByLevel()
     fmt.Println()
 }
+*/
