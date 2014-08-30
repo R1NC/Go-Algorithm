@@ -1,9 +1,7 @@
 /*
   Time complexity: O(N*logN)
 */
-package main
-
-import "fmt"
+package sort
 
 func checkArray(array []int) {
 	if array == nil {
@@ -54,9 +52,11 @@ func QuickSort(array []int) {
 	recursion(array, 0, len(array) - 1)
 }
 
+/*
 func main() {
 	array := []int{5, 3, 2, 6, 4, 1}
 	fmt.Println("Initial array:", array)
 	QuickSort(array)
 	fmt.Println("QuickSort:", array)
 }
+*/

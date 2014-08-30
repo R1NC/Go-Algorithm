@@ -2,9 +2,7 @@
   Time complexity: O(logN)
 */
 
-package main
-
-import "fmt"
+package search
 
 func initSearch(sorted_array []int) (int, int) {
 	if sorted_array == nil {
@@ -49,6 +47,7 @@ func recursion_search(sorted_array []int, target int, low int, high int) int {
 	}
 }
 
+/*
 func main() {
 	sorted_array := []int{1, 3, 5, 7, 9, 11, 13, 15}
 	fmt.Println("Array:", sorted_array)
@@ -56,3 +55,4 @@ func main() {
 	fmt.Printf("RecursionBinarySearch '%d': %d\n", x, RecursionBinarySearch(sorted_array, x))
 	fmt.Printf("NonRecursionBinarySearch '%d': %d\n", x, NonRecursionBinarySearch(sorted_array, x))
 }
+*/

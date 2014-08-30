@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package queue
 
 type node struct {
 	value interface{}
@@ -50,6 +48,7 @@ func (queue *LinkedQueue) Remove() {
 	first_node = nil
 }
 
+/*
 func main() {
 	queue := &LinkedQueue{}
 	queue.Add("A")
@@ -61,3 +60,4 @@ func main() {
         	queue.Remove()
 	}
 }
+*/

@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package stack
 
 type node struct {
 	value interface{}
@@ -42,6 +40,7 @@ func (stack *LinkedStack) Peek() interface{} {
 	return stack.top.value
 }
 
+/*
 func main() {
 	stack := &LinkedStack{}
 	stack.Push("iOS")
@@ -54,3 +53,4 @@ func main() {
 		stack.Pop()
 	}
 }
+*/

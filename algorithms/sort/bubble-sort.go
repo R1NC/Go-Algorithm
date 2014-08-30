@@ -1,9 +1,7 @@
 /*
   Time complexity: O(N^2)
 */
-package main
-
-import "fmt"
+package sort
 
 func checkArray(array []int) {
 	if array == nil {
@@ -21,21 +19,17 @@ func swap(array []int, index1 int, index2 int) {
 
 func SimpleBubbleSort(array []int) {
 	checkArray(array)
-	//var compare int
 	for i := 0; i < len(array); i++ {
 		for j := 1; j < len(array) - i; j++ {
 			if array[j - 1] > array[j] {
 				swap(array, j - 1, j)
 			}
-			//compare++
 		}
 	}
-	//fmt.Printf("compare: %d\n", compare)
 }
 
 func FlagSwapBubbleSort(array []int) {
 	checkArray(array)
-	//var compare int
 	var has_swapped bool
 	for i := 0; i < len(array); i++ {
 		has_swapped = false
@@ -44,7 +38,6 @@ func FlagSwapBubbleSort(array []int) {
 				swap(array, j - 1, j)
 				has_swapped = true
 			}
-			//compare++
 		}
 		// if the last scanning has no swapping, the array is sorted.
 		// Then there's no need to scan again.
@@ -52,12 +45,10 @@ func FlagSwapBubbleSort(array []int) {
 			break
 		}
 	}
-	//fmt.Printf("compare: %d\n", compare)
 }
 
 func FlagSwapPositionBubbleSort(array []int) {
 	checkArray(array)
-	//var compare int
 	var has_swapped bool
 	var flag int
 	last_swap_position := len(array)
@@ -72,15 +63,14 @@ func FlagSwapPositionBubbleSort(array []int) {
 				has_swapped = true
 				last_swap_position = j
 			}
-			//compare++
 		}
 		if !has_swapped {
 			break
 		}
 	}
-	//fmt.Printf("compare: %d\n", compare)
 }
 
+/*
 func main() {
 	array1 := []int{2, 1, 3, 5, 6, 4}
 	array2 := []int{2, 1, 3, 5, 6, 4}
@@ -93,3 +83,4 @@ func main() {
 	FlagSwapPositionBubbleSort(array3)
 	fmt.Println("FlagSwapPositionBubbleSort:", array3)
 }
+*/

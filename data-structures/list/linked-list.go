@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package list
 
 type node struct {
 	value interface{}
@@ -205,6 +203,7 @@ func (list *LinkedList) RemoveLast() {
 	last_node = nil
 }
 
+/*
 func main() {
 	list := &LinkedList{}
 	list.AddToLast("D")
@@ -232,3 +231,4 @@ func main() {
 	fmt.Printf("First: %s\n", list.GetFirst())
 	fmt.Printf("Last: %s\n", list.GetLast())
 }
+*/
