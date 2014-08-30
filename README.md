@@ -38,7 +38,7 @@ func (tree *BinaryTree) Search(value int) *BinaryTree
 func (tree *BinaryTree) Traverse()
 func (tree *BinaryTree) TraverseByLevel()
 ```
-Sort Algorithms
+Sorting Algorithms
 ===============
 * [BubbleSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/bubble-sort.go):
 ```go
@@ -58,7 +58,7 @@ func SelectSort(array []int)
 ```go
 func QucikSort(array []int)
 ```
-Search Algorithms
+Searching Algorithms
 =================
 * [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
 ```go
