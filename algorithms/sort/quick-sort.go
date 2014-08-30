@@ -29,11 +29,11 @@ func partitionRecursion(array []int, left int, right int) {
 			high--
 		}
 	}
-	// Handle the left part of the array.
+	// Handle the left part of the array which is unsorted.
 	if left < high {
 		partitionRecursion(array, left, high)
 	}
-	// Handle the right part of the array.
+	// Handle the right part of the array which is unsorted.
 	if low < right {
 		partitionRecursion(array, low, right)
 	}
