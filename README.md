@@ -35,8 +35,8 @@ Nonlinear Data Structures
 ```go
 func (tree *BinaryTree) Add(value int)
 func (tree *BinaryTree) Search(value int) *BinaryTree
-func (tree *BinaryTree) Print()
-func (tree *BinaryTree) PrintByLevel()
+func (tree *BinaryTree) Traverse()
+func (tree *BinaryTree) TraverseByLevel()
 ```
 Sort Algorithms
 ===============
