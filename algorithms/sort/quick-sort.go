@@ -1,41 +1,47 @@
 /*
+  QuickSort is suitable for sorting big data.
+  The divide-and-conquer strategy is used in QuickSort.
   Time complexity: O(N*logN)
 */
 package sort
 
-func partition(array []int, left int, right int) int{
+func partitionRecursion(array []int, left int, right int) {
 	low := left
 	high := right
+	// Choose the middle element as pivot value, but it can be any one.
 	pivot := array[(left + right) / 2]
 	for low <= high {
+		// In the left part of the array, looking for the element which is greater than the pivot.
 		for array[low] < pivot {
 			low++
 		}
+		// In the right part of the array, looking for the element which is lesser than the pivot.
 		for array[high] > pivot {
 			high--
 		}
 		if low <= high {
+			// Swap the two elements we found to meke sure that,
+			// all values before 'low' element are less or equal than the pivot,
+			// and all values after 'high' element are greater or equal to the pivot.
 			swap(array, low, high)
+			// Prepare for next scanning.
 			low++
 			high--
 		}
 	}
-	return low
-}
-
-func recursion(array []int, left int, right int) {
-	index := partition(array, left, right)
-	if left < index - 1 {
-		recursion(array, left, index - 1)
+	// Handle the left part of the array.
+	if left < high {
+		partitionRecursion(array, left, high)
 	}
-	if index < right {
-		recursion(array, index, right)
+	// Handle the right part of the array.
+	if low < right {
+		partitionRecursion(array, low, right)
 	}
 }
 
 func QuickSort(array []int) {
 	checkArray(array)
-	recursion(array, 0, len(array) - 1)
+	partitionRecursion(array, 0, len(array) - 1)
 }
 
 /*
