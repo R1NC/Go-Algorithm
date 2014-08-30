@@ -40,15 +40,15 @@ func (tree *BinaryTree) Search(value int) *BinaryTree {
 	}
 }
 
-func (tree *BinaryTree) Print() {
+func (tree *BinaryTree) Traverse() {
 	fmt.Printf("%d", tree.Value)
 	if tree.LeftChild == nil && tree.RightChild == nil {
 		return
 	}
 	fmt.Print("(")
-	tree.LeftChild.Print()
+	tree.LeftChild.Traverse()
 	fmt.Print(",")
-	tree.RightChild.Print()
+	tree.RightChild.Traverse()
 	fmt.Print(")")
 }
 
@@ -60,7 +60,7 @@ func convertInterfaceToBinaryTreePointer(x interface{}) *BinaryTree {
     }
 }
 
-func (tree *BinaryTree) PrintByLevel() {
+func (tree *BinaryTree) TraverseByLevel() {
     queue := &queue.LinkedQueue{}
     queue.Add(tree)
     for queue.Size() > 0 {
@@ -85,9 +85,9 @@ func main() {
 	tree.Add(1)
 	tree.Add(4)
 	tree.Add(6)
-	tree.Print()
+	tree.Traverse()
 	fmt.Println()
-	tree.Search(5).PrintByLevel()
+	tree.Search(5).TraverseByLevel()
 	fmt.Println()
 }
 */
