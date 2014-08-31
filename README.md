@@ -34,6 +34,7 @@ Nonlinear Data Structures
 * [BinaryTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-tree.go)
 ```go
 func (tree *BinaryTree) Add(value int)
+func (tree *BinaryTree) Remove(value int)
 func (tree *BinaryTree) Search(value int) *BinaryTree
 func (tree *BinaryTree) Traverse()
 func (tree *BinaryTree) TraverseByLevel()

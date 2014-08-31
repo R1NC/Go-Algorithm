@@ -25,6 +25,52 @@ func (tree *BinaryTree) Add(value int) {
 	}
 }
 
+func (tree *BinaryTree) Remove(value int) {
+	t := tree.Search(value)
+	if t == nil {
+		panic("This value is not found.")
+	}
+	if t.LeftChild.Value == 0 && t.RightChild.Value == 0 {// Both LeftChild and RightChild are empty.
+		// Remove it directly.
+		t.Value = 0
+		t.LeftChild = nil
+		t.RightChild = nil
+	} else if t.LeftChild.Value != 0 && t.RightChild.Value != 0 {// Both LeftChild and RightChild are not empty.
+		// Get the min-element in its RightChild.
+		min := t.RightChild.getMin()
+		// Replace its value with the min-element's value.
+		t.Value = min.Value
+		// Remove the min-element.
+		min.Value = 0
+		min.LeftChild = nil
+		min.RightChild = nil
+	} else {// LeftChild or RightChild is empty.
+		// Replace it with its child which is not empty.
+		if t.LeftChild.Value > 0 {
+			t.replaceWith(t.LeftChild)
+		} else {
+			t.replaceWith(t.RightChild)
+		}
+	}
+}
+
+func (tree *BinaryTree) getMin() *BinaryTree {
+	if tree.LeftChild.Value == 0 {
+		return tree
+	} else {
+		return tree.LeftChild.getMin()
+	}
+}
+
+func (tree *BinaryTree) replaceWith(t *BinaryTree) {
+	tree.Value = t.Value
+	tree.LeftChild = t.LeftChild
+	tree.RightChild = t.RightChild
+	t.Value = 0
+	t.LeftChild = nil
+	t.RightChild = nil
+}
+
 func (tree *BinaryTree) Search(value int) *BinaryTree {
 	if tree == nil {
 		return nil
@@ -88,6 +134,9 @@ func main() {
 	tree.Traverse()
 	fmt.Println()
 	tree.Search(5).TraverseByLevel()
+	fmt.Println()
+	tree.Remove(3)
+	tree.TraverseByLevel()
 	fmt.Println()
 }
 */
