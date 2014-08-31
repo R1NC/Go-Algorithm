@@ -9,6 +9,11 @@ type BinaryTree struct {
 	Value int
 	LeftChild *BinaryTree
 	RightChild *BinaryTree
+	size int
+}
+
+func (tree *BinaryTree) Size() int {
+	return tree.size
 }
 
 func (tree *BinaryTree) Add(value int) {
@@ -16,7 +21,8 @@ func (tree *BinaryTree) Add(value int) {
 		tree.Value = value
 		tree.LeftChild = &BinaryTree{}
 		tree.RightChild = &BinaryTree{}
-        } else {
+		tree.size++
+	} else {
 		if value < tree.Value {
 			tree.LeftChild.Add(value)
 		} else {
@@ -48,6 +54,7 @@ func (tree *BinaryTree) Remove(value int) {
 			t.replaceWith(t.RightChild)
 		}
 	}
+	tree.size--
 }
 
 func destroy(tree *BinaryTree) {
@@ -135,8 +142,10 @@ func main() {
 	fmt.Println()
 	tree.Search(5).TraverseByLevel()
 	fmt.Println()
+	fmt.Println("Size: ", tree.Size())
 	tree.Remove(3)
 	tree.TraverseByLevel()
 	fmt.Println()
+	fmt.Println("Size: ", tree.Size())
 }
 */
