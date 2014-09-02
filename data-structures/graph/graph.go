@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/RincLiu/Go-Algorithm/data-structures/queue"
+	"github.com/RincLiu/Go-Algorithm/data-structures/stack"
 )
 
 type Vertex struct {
@@ -54,7 +55,29 @@ func (graph *Graph) BreadFirstTraverse() {
 }
 
 func (graph *Graph) DepthFirstTraverse() {
-	//TODO
+	if graph.Vertices == nil || len(graph.Vertices) == 0 {
+                panic("Graph has no vertex.")
+        }       
+        fmt.Printf("%s ", graph.FirstVertex.Label)
+        graph.FirstVertex.isVisited = true
+	stack := &stack.LinkedStack{}
+	stack.Push(graph.FirstVertex)
+	for stack.Size() > 0 {
+		vertex := convertToVertex(stack.Peek())
+		isAddNewVertex := false
+		for _, edge := range vertex.Edges {
+			if !edge.ToVertex.isVisited {
+				fmt.Printf("%s ", edge.ToVertex.Label)
+                                edge.ToVertex.isVisited = true
+				isAddNewVertex = true
+				stack.Push(edge.ToVertex)
+			}
+		} 
+		if !isAddNewVertex {
+			stack.Pop()
+		}
+	}
+	graph.clearVisitHistory()
 }
 
 func (graph *Graph) clearVisitHistory() {
