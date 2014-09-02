@@ -41,8 +41,8 @@ func (tree *BinaryTree) TraverseByLevel()
 ```
 * [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go)
 ```go
-func (graph *Graph) HasVertex(vertex *Vertex) bool
-func (graph *Graph) HasPathBetweenVertexes(v1 *Vertex, v2 *Vertex) bool
+func (graph *Graph) BreadFirstTraverse()
+func (graph *Graph) DepthFirstTraverse()
 ```
 Sorting Algorithms
 ===============

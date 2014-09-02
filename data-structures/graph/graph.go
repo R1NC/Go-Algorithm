@@ -19,39 +19,46 @@ type Edge struct {
 }
 
 type Graph struct {
-	Vertexes []*Vertex
+	Vertices []*Vertex
 	FirstVertex *Vertex	
 }
 
-func (graph *Graph) HasVertex(vertex *Vertex) bool {
-	if graph.Vertexes == nil || len(graph.Vertexes) == 0 {
-		panic("Graph has no vertexes.")	
+func convertToVertex(x interface{}) *Vertex {
+	if v, ok := x.(*Vertex); ok {
+		return v
+	} else {
+		panic("Type convertion exception.")
 	}
-	for _, v := range graph.Vertexes {
-		if v == vertex {
-			return true
-		}
-	}
-	return false
 }
 
-func (graph *Graph) HasPathBetweenVertexes(v1 *Vertex, v2 *Vertex) bool {
-	if v1 == v2 {
-		panic("Must be two different vertexes.")
+func (graph *Graph) BreadFirstTraverse() {
+	if graph.Vertices == nil || len(graph.Vertices) == 0 {
+		panic("Graph has no vertex.")
 	}
-	if !graph.HasVertex(v1) {
-		panic("v1 is not in graph.")
+	fmt.Printf("%s ", graph.FirstVertex.Label)
+	graph.FirstVertex.isVisited = true
+	queue := &queue.LinkedQueue{}
+	queue.Add(graph.FirstVertex)
+	for queue.Size() > 0 {
+		vertex := convertToVertex(queue.Peek())
+		for _, edge := range vertex.Edges {
+			if !edge.ToVertex.isVisited {
+				fmt.Printf("%s ", edge.ToVertex.Label)
+				edge.ToVertex.isVisited = true
+				queue.Add(edge.ToVertex)
+			}
+		}	
+		queue.Remove()
 	}
-	if !graph.HasVertex(v2) {
-		panic("v2 is not in graph.")
-	}
-		
+	graph.clearVisitHistory()
+}
+
+func (graph *Graph) DepthFirstTraverse() {
 	//TODO
-	return false	
 }
 
 func (graph *Graph) clearVisitHistory() {
-	for _, v := range graph.Vertexes {
+	for _, v := range graph.Vertices {
 		for _, e := range v.Edges {
 			e.isUsed = false
 		}
@@ -216,9 +223,11 @@ func main() {
 	Vg.Edges = []*Edge{Egd, Ege, Egf}
 
 	graph := &Graph{}
-	graph.Vertexes = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
+	graph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
 	graph.FirstVertex = Va
 
-	fmt.Println("hasVertexD:", graph.HasVertex(Vd))
-	fmt.Println("hasPathBetweenAE:", graph.HasPathBetweenVertexes(Va, Ve))
+	graph.BreadFirstTraverse()
+	fmt.Println()
+	graph.DepthFirstTraverse()
+	fmt.Println()
 }

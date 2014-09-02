@@ -98,7 +98,7 @@ func (tree *BinaryTree) Traverse() {
 	fmt.Print(")")
 }
 
-func convertInterfaceToBinaryTreePointer(x interface{}) *BinaryTree {
+func convertToBinaryTree(x interface{}) *BinaryTree {
     if v, ok := x.(*BinaryTree); ok {
         return v
     } else {
@@ -110,7 +110,7 @@ func (tree *BinaryTree) TraverseByLevel() {
     queue := &queue.LinkedQueue{}
     queue.Add(tree)
     for queue.Size() > 0 {
-        t := convertInterfaceToBinaryTreePointer(queue.Peek())
+        t := convertToBinaryTree(queue.Peek())
         if t.LeftChild != nil {
             queue.Add(t.LeftChild)
         }
