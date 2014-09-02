@@ -2,7 +2,7 @@ package tree
 
 import (
     "fmt"
-    "Go-Algorithm/data-structures/queue"
+    "github.com/RincLiu/Go-Algorithm/data-structures/queue"
 )
 
 type BinaryTree struct {

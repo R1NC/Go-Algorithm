@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/RincLiu/Go-Algorithm/data-structures/queue"
+)
 
 type Vertex struct {
 	Label string
@@ -36,8 +39,24 @@ func (graph *Graph) HasPathBetweenVertexes(v1 *Vertex, v2 *Vertex) bool {
 	if v1 == v2 {
 		panic("Must be two different vertexes.")
 	}
+	if !graph.HasVertex(v1) {
+		panic("v1 is not in graph.")
+	}
+	if !graph.HasVertex(v2) {
+		panic("v2 is not in graph.")
+	}
+		
 	//TODO
 	return false	
+}
+
+func (graph *Graph) clearVisitHistory() {
+	for _, v := range graph.Vertexes {
+		for _, e := range v.Edges {
+			e.isUsed = false
+		}
+		v.isVisited = false
+        }
 }
 
 func main() {
