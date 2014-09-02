@@ -20,7 +20,22 @@ type Graph struct {
 	FirstVertex *Vertex	
 }
 
+func (graph *Graph) HasVertex(vertex *Vertex) bool {
+	if graph.Vertexes == nil || len(graph.Vertexes) == 0 {
+		panic("Graph has no vertexes.")	
+	}
+	for _, v := range graph.Vertexes {
+		if v == vertex {
+			return true
+		}
+	}
+	return false
+}
+
 func (graph *Graph) HasPathBetweenVertexes(v1 *Vertex, v2 *Vertex) bool {
+	if v1 == v2 {
+		panic("Must be two different vertexes.")
+	}
 	//TODO
 	return false	
 }
@@ -184,4 +199,7 @@ func main() {
 	graph := &Graph{}
 	graph.Vertexes = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
 	graph.FirstVertex = Va
+
+	fmt.Println("hasVertexD:", graph.HasVertex(Vd))
+	fmt.Println("hasPathBetweenAE:", graph.HasPathBetweenVertexes(Va, Ve))
 }
