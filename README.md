@@ -43,6 +43,10 @@ func (tree *BinaryTree) TraverseByLevel()
 ```go
 func (graph *Graph) BreadFirstTraverse()
 func (graph *Graph) DepthFirstTraverse()
+func (graph *Graph) PrimMinimumSpanningTree()
+func (graph *Graph) KruskalMinimumSpanningTree()
+func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex)
+func (graph *Graph) TopologicalSort()
 ```
 Sorting Algorithms
 ===============

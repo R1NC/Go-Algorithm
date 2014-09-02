@@ -80,6 +80,22 @@ func (graph *Graph) DepthFirstTraverse() {
 	graph.clearVisitHistory()
 }
 
+func (graph *Graph) PrimMinimumSpanningTree() {
+
+}
+
+func (graph *Graph) KruskalMinimumSpanningTree() {
+
+}
+
+func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex) {
+
+}
+
+func (graph *Graph) TopologicalSort() {
+
+}
+
 func (graph *Graph) clearVisitHistory() {
 	for _, v := range graph.Vertices {
 		for _, e := range v.Edges {
@@ -248,9 +264,17 @@ func main() {
 	graph := &Graph{}
 	graph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
 	graph.FirstVertex = Va
-
+	fmt.Println("BreadFirstTraverse:")
 	graph.BreadFirstTraverse()
-	fmt.Println()
+	fmt.Println("\nDepthFirstTraverse:")
 	graph.DepthFirstTraverse()
+	fmt.Println("\nPrimMinimumSpanningTree:")
+	graph.PrimMinimumSpanningTree()
+	fmt.Println("\nKruskalMinimumSpanningTree:")
+	graph.KruskalMinimumSpanningTree()
+	fmt.Println("\nDijkstraShortestPathTree from A to G:")
+	graph.DijkstraShortestPathTree(Va, Vg)
+	fmt.Println("\nTopologicalSort:")
+	graph.TopologicalSort()
 	fmt.Println()
 }
