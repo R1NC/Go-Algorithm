@@ -21,7 +21,6 @@ type Edge struct {
 
 type Graph struct {
 	Vertices []*Vertex
-	FirstVertex *Vertex	
 }
 
 func convertToVertex(x interface{}) *Vertex {
@@ -32,14 +31,14 @@ func convertToVertex(x interface{}) *Vertex {
 	}
 }
 
-func (graph *Graph) BreadFirstTraverse() {
+func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
 		panic("Graph has no vertex.")
 	}
-	fmt.Printf("%s ", graph.FirstVertex.Label)
-	graph.FirstVertex.isVisited = true
+	fmt.Printf("%s ", startVertex.Label)
+	startVertex.isVisited = true
 	queue := &queue.LinkedQueue{}
-	queue.Add(graph.FirstVertex)
+	queue.Add(startVertex)
 	for queue.Size() > 0 {
 		vertex := convertToVertex(queue.Peek())
 		for _, edge := range vertex.Edges {
@@ -54,14 +53,14 @@ func (graph *Graph) BreadFirstTraverse() {
 	graph.clearVisitHistory()
 }
 
-func (graph *Graph) DepthFirstTraverse() {
+func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
                 panic("Graph has no vertex.")
         }       
-        fmt.Printf("%s ", graph.FirstVertex.Label)
-        graph.FirstVertex.isVisited = true
+        fmt.Printf("%s ", startVertex.Label)
+        startVertex.isVisited = true
 	stack := &stack.LinkedStack{}
-	stack.Push(graph.FirstVertex)
+	stack.Push(startVertex)
 	for stack.Size() > 0 {
 		vertex := convertToVertex(stack.Peek())
 		isAddNewVertex := false
@@ -80,8 +79,33 @@ func (graph *Graph) DepthFirstTraverse() {
 	graph.clearVisitHistory()
 }
 
-func (graph *Graph) PrimMinimumSpanningTree() {
+func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex) {
+	treeEdges := []*Edge{}
+	startVertex.isVisited = true
+	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
+		minWeightEdge := getMinWeightEdgeInVertices(graph.getVisitedVertices())
+		if minWeightEdge != nil {
+			treeEdges = append(treeEdges, minWeightEdge)
+		}
+		minWeightEdge.ToVertex.isVisited = true
+	}
+	for _, edge := range treeEdges {
+		fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
+	}	
+}
 
+func getMinWeightEdgeInVertices(vertices []*Vertex) *Edge {
+	var minWeightEdge *Edge
+	for _, vertex := range vertices {
+		for _, edge := range vertex.Edges {
+			if !edge.ToVertex.isVisited {
+				if minWeightEdge == nil || minWeightEdge.Weight > edge.Weight {
+					minWeightEdge = edge
+				}
+			}
+		}
+	}
+	return minWeightEdge
 }
 
 func (graph *Graph) KruskalMinimumSpanningTree() {
@@ -94,6 +118,16 @@ func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Verte
 
 func (graph *Graph) TopologicalSort() {
 
+}
+
+func (graph *Graph) getVisitedVertices() []*Vertex {
+	vertices := []*Vertex{}
+	for _, vertex := range graph.Vertices {
+		if vertex.isVisited {
+			vertices = append(vertices, vertex)
+		}
+	}
+	return vertices
 }
 
 func (graph *Graph) clearVisitHistory() {
@@ -263,17 +297,22 @@ func main() {
 
 	graph := &Graph{}
 	graph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
-	graph.FirstVertex = Va
+	
 	fmt.Println("BreadFirstTraverse:")
-	graph.BreadFirstTraverse()
+	graph.BreadFirstTraverse(Va)
+
 	fmt.Println("\nDepthFirstTraverse:")
-	graph.DepthFirstTraverse()
+	graph.DepthFirstTraverse(Va)
+
 	fmt.Println("\nPrimMinimumSpanningTree:")
-	graph.PrimMinimumSpanningTree()
-	fmt.Println("\nKruskalMinimumSpanningTree:")
+	graph.PrimMinimumSpanningTree(Va)
+
+	fmt.Println("KruskalMinimumSpanningTree:")
 	graph.KruskalMinimumSpanningTree()
+
 	fmt.Println("\nDijkstraShortestPathTree from A to G:")
 	graph.DijkstraShortestPathTree(Va, Vg)
+
 	fmt.Println("\nTopologicalSort:")
 	graph.TopologicalSort()
 	fmt.Println()

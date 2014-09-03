@@ -41,9 +41,9 @@ func (tree *BinaryTree) TraverseByLevel()
 ```
 * [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go)
 ```go
-func (graph *Graph) BreadFirstTraverse()
-func (graph *Graph) DepthFirstTraverse()
-func (graph *Graph) PrimMinimumSpanningTree()
+func (graph *Graph) BreadFirstTraverse(startVertex *Vertex)
+func (graph *Graph) DepthFirstTraverse(startVertex *Vertex)
+func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex)
 func (graph *Graph) KruskalMinimumSpanningTree()
 func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex)
 func (graph *Graph) TopologicalSort()
