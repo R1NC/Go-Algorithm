@@ -55,24 +55,24 @@ func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 
 func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
-                panic("Graph has no vertex.")
-        }       
-        fmt.Printf("%s ", startVertex.Label)
-        startVertex.isVisited = true
+		panic("Graph has no vertex.")
+	}       
+	fmt.Printf("%s ", startVertex.Label)
+	startVertex.isVisited = true
 	stack := &stack.LinkedStack{}
 	stack.Push(startVertex)
 	for stack.Size() > 0 {
 		vertex := convertToVertex(stack.Peek())
-		isAddNewVertex := false
+		hasAddedNewVertex := false
 		for _, edge := range vertex.Edges {
 			if !edge.ToVertex.isVisited {
 				fmt.Printf("%s ", edge.ToVertex.Label)
-                                edge.ToVertex.isVisited = true
-				isAddNewVertex = true
+				edge.ToVertex.isVisited = true
+				hasAddedNewVertex = true
 				stack.Push(edge.ToVertex)
 			}
-		} 
-		if !isAddNewVertex {
+		}
+		if !hasAddedNewVertex {
 			stack.Pop()
 		}
 	}
@@ -89,6 +89,7 @@ func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex) {
 		}
 		minWeightEdge.ToVertex.isVisited = true
 	}
+	graph.clearVisitHistory()
 	for _, edge := range treeEdges {
 		fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
 	}	
@@ -109,7 +110,89 @@ func getMinWeightEdgeInVertices(vertices []*Vertex) *Edge {
 }
 
 func (graph *Graph) KruskalMinimumSpanningTree() {
+	treeEdges := []*Edge{}
+	for _, vertex := range graph.Vertices {
+		for _, edge := range vertex.Edges {
+			treeEdges = append(treeEdges, edge)
+		}
+	}
+	treeCount := len(graph.Vertices)
+	for treeCount > 1 {
+		minWeightUnUsedEdge := getMinWeightUnUsedEdgeInEdges(treeEdges)
+		if minWeightUnUsedEdge != nil {
+			oppositeEdge := getOppositeEdgeInEdges(treeEdges, minWeightUnUsedEdge)
+			if !graph.hasPathBetweenVertices(minWeightUnUsedEdge.FromVertex, minWeightUnUsedEdge.ToVertex) {
+				minWeightUnUsedEdge.isUsed = true
+				oppositeEdge.isUsed = true
+				treeCount--
+			} else {
+				removeEdgeInEdges(treeEdges, minWeightUnUsedEdge)
+				removeEdgeInEdges(treeEdges, oppositeEdge)
+			}
+		}
+	}
+	graph.clearVisitHistory()
+	for _, edge := range treeEdges {
+		if edge.isUsed {
+			fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
+		}
+	}
+}
 
+func getMinWeightUnUsedEdgeInEdges(edges []*Edge) *Edge {
+	var minWeightUnUsedEdge *Edge
+	for _, edge := range edges {
+		if !edge.isUsed {
+			if minWeightUnUsedEdge == nil || minWeightUnUsedEdge.Weight > edge.Weight {
+				minWeightUnUsedEdge = edge
+			}	
+		}
+	}
+	return minWeightUnUsedEdge
+}
+
+func getOppositeEdgeInEdges(edges []*Edge, edge *Edge) *Edge {
+	for _, e := range edges {
+		if e.FromVertex == edge.ToVertex && e.ToVertex == edge.FromVertex && e.Weight == edge.Weight {
+			return e
+		}
+	}
+	return nil
+}
+
+func (graph *Graph) hasPathBetweenVertices(v1 *Vertex, v2 *Vertex) bool {
+	queue := &queue.LinkedQueue{}
+	v1.isVisited = true
+	for _, edge := range v1.Edges {
+		if edge.isUsed {
+			queue.Add(edge.ToVertex)
+		}
+	}
+	for queue.Size() > 0 {
+		vertex := convertToVertex(queue.Peek())
+		if vertex == v2 {
+			return true
+		} else {
+			for _, e := range vertex.Edges {
+				if e.isUsed && !e.ToVertex.isVisited {
+					queue.Add(e)
+				}
+			}
+		}
+		vertex.isVisited = true
+		queue.Remove()
+	}
+	return false
+}
+
+func removeEdgeInEdges(edges []*Edge, e *Edge) {
+	var es []*Edge
+	for _, x := range edges {
+		if x != e {
+			es = append(es, x)
+		}
+	}
+	edges = es
 }
 
 func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex) {
@@ -136,7 +219,7 @@ func (graph *Graph) clearVisitHistory() {
 			e.isUsed = false
 		}
 		v.isVisited = false
-        }
+	}
 }
 
 func main() {
@@ -147,19 +230,19 @@ func main() {
 	Vb.Label = "B"
 
 	Vc := &Vertex{}
-        Vc.Label = "C"
+	Vc.Label = "C"
 
 	Vd := &Vertex{}
-        Vd.Label = "D"
+	Vd.Label = "D"
 
 	Ve := &Vertex{}
-        Ve.Label = "E"
+	Ve.Label = "E"
 
 	Vf := &Vertex{}
-        Vf.Label = "F"
+	Vf.Label = "F"
 
 	Vg := &Vertex{}
-        Vg.Label = "G"
+	Vg.Label = "G"
 
 	Eab := &Edge{}
 	Eab.FromVertex = Va
@@ -167,131 +250,131 @@ func main() {
 	Eab.Weight = 2
 
 	Eac := &Edge{}
-        Eac.FromVertex = Va
-        Eac.ToVertex = Vc
-        Eac.Weight = 4
+	Eac.FromVertex = Va
+	Eac.ToVertex = Vc
+	Eac.Weight = 4
 
 	Ead := &Edge{}
-        Ead.FromVertex = Va
-        Ead.ToVertex = Vd
-        Ead.Weight = 1
+	Ead.FromVertex = Va
+	Ead.ToVertex = Vd
+	Ead.Weight = 1
 
 	Va.Edges = []*Edge{Eab, Eac, Ead}
 	
 	Eba := &Edge{}
-        Eba.FromVertex = Vb
-        Eba.ToVertex = Va
-        Eba.Weight = 2
+	Eba.FromVertex = Vb
+	Eba.ToVertex = Va
+	Eba.Weight = 2
 
 	Ebd := &Edge{}
-        Ebd.FromVertex = Vb
-        Ebd.ToVertex = Vd
-        Ebd.Weight = 3
+	Ebd.FromVertex = Vb
+	Ebd.ToVertex = Vd
+	Ebd.Weight = 3
 
 	Ebe := &Edge{}
-        Ebe.FromVertex = Vb
-        Ebe.ToVertex = Ve
-        Ebe.Weight = 10
+	Ebe.FromVertex = Vb
+	Ebe.ToVertex = Ve
+	Ebe.Weight = 10
 
 	Vb.Edges = []*Edge{Eba, Ebd, Ebe}
 	
 	Eca := &Edge{}
-        Eca.FromVertex = Vc
-        Eca.ToVertex = Va
-        Eca.Weight = 4
+	Eca.FromVertex = Vc
+	Eca.ToVertex = Va
+	Eca.Weight = 4
 
 	Ecd := &Edge{}
-        Ecd.FromVertex = Vc
-        Ecd.ToVertex = Vd
-        Ecd.Weight = 2
+	Ecd.FromVertex = Vc
+	Ecd.ToVertex = Vd
+	Ecd.Weight = 2
 
 	Ecf := &Edge{}
-        Ecf.FromVertex = Vc
-        Ecf.ToVertex = Vf
-        Ecf.Weight = 5
+	Ecf.FromVertex = Vc
+	Ecf.ToVertex = Vf
+	Ecf.Weight = 5
 
 	Vc.Edges = []*Edge{Eca, Ecd, Ecf}
 	
 	Eda := &Edge{}
-        Eda.FromVertex = Vd
-        Eda.ToVertex = Va
-        Eda.Weight = 1
+	Eda.FromVertex = Vd
+	Eda.ToVertex = Va
+	Eda.Weight = 1
 
 	Edb := &Edge{}
-        Edb.FromVertex = Vd
-        Edb.ToVertex = Vb
-        Edb.Weight = 3
+	Edb.FromVertex = Vd
+	Edb.ToVertex = Vb
+	Edb.Weight = 3
 
 	Edc := &Edge{}
-        Edc.FromVertex = Vd
-        Edc.ToVertex = Vc
-        Edc.Weight = 2
+	Edc.FromVertex = Vd
+	Edc.ToVertex = Vc
+	Edc.Weight = 2
 
 	Ede := &Edge{}
-        Ede.FromVertex = Vd
-        Ede.ToVertex = Ve
-        Ede.Weight = 7
+	Ede.FromVertex = Vd
+	Ede.ToVertex = Ve
+	Ede.Weight = 7
 
 	Edf := &Edge{}
-        Edf.FromVertex = Vd
-        Edf.ToVertex = Vf
-        Edf.Weight = 8
+	Edf.FromVertex = Vd
+	Edf.ToVertex = Vf
+	Edf.Weight = 8
 
 	Edg := &Edge{}
-        Edg.FromVertex = Vd
-        Edg.ToVertex = Vg
-        Edg.Weight = 4
+	Edg.FromVertex = Vd
+	Edg.ToVertex = Vg
+	Edg.Weight = 4
 
 	Vd.Edges = []*Edge{Eda, Edb, Edc, Ede, Edf, Edg}
 
 	Eeb := &Edge{}
-        Eeb.FromVertex = Ve
-        Eeb.ToVertex = Vb
-        Eeb.Weight = 10
+	Eeb.FromVertex = Ve
+	Eeb.ToVertex = Vb
+	Eeb.Weight = 10
 
 	Eed := &Edge{}
-        Eed.FromVertex = Ve
-        Eed.ToVertex = Vd
-        Eed.Weight = 7
+	Eed.FromVertex = Ve
+	Eed.ToVertex = Vd
+	Eed.Weight = 7
 
 	Eeg := &Edge{}
-        Eeg.FromVertex = Ve
-        Eeg.ToVertex = Vg
-        Eeg.Weight = 6
+	Eeg.FromVertex = Ve
+	Eeg.ToVertex = Vg
+	Eeg.Weight = 6
 
 	Ve.Edges = []*Edge{Eeb, Eed, Eeg}
 
 	Efc := &Edge{}
-        Efc.FromVertex = Vf
-        Efc.ToVertex = Vc
-        Efc.Weight = 5
+	Efc.FromVertex = Vf
+	Efc.ToVertex = Vc
+	Efc.Weight = 5
 
 	Efd := &Edge{}
-        Efd.FromVertex = Vf
-        Efd.ToVertex = Vd
-        Efd.Weight = 8
+	Efd.FromVertex = Vf
+	Efd.ToVertex = Vd
+	Efd.Weight = 8
 
 	Efg := &Edge{}
-        Efg.FromVertex = Vf
-        Efg.ToVertex = Vg
-        Efg.Weight = 1
+	Efg.FromVertex = Vf
+	Efg.ToVertex = Vg
+	Efg.Weight = 1
 	
 	Vf.Edges = []*Edge{Efc, Efd, Efg}
 
 	Egd := &Edge{}
-        Egd.FromVertex = Vg
-        Egd.ToVertex = Vd
-        Egd.Weight = 4
+	Egd.FromVertex = Vg
+	Egd.ToVertex = Vd
+	Egd.Weight = 4
 
 	Ege := &Edge{}
-        Ege.FromVertex = Vg
-        Ege.ToVertex = Ve
-        Ege.Weight = 6
+	Ege.FromVertex = Vg
+	Ege.ToVertex = Ve
+	Ege.Weight = 6
 
 	Egf := &Edge{}
-        Egf.FromVertex = Vg
-        Egf.ToVertex = Vf
-        Egf.Weight = 1
+	Egf.FromVertex = Vg
+	Egf.ToVertex = Vf
+	Egf.Weight = 1
 	
 	Vg.Edges = []*Edge{Egd, Ege, Egf}
 
