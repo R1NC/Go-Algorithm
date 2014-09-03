@@ -23,14 +23,6 @@ type Graph struct {
 	Vertices []*Vertex
 }
 
-func convertToVertex(x interface{}) *Vertex {
-	if v, ok := x.(*Vertex); ok {
-		return v
-	} else {
-		panic("Type convertion exception.")
-	}
-}
-
 func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
 		panic("Graph has no vertex.")
@@ -126,17 +118,17 @@ func (graph *Graph) KruskalMinimumSpanningTree() {
 				oppositeEdge.isUsed = true
 				treeCount--
 			} else {
-				removeEdgeInEdges(treeEdges, minWeightUnUsedEdge)
-				removeEdgeInEdges(treeEdges, oppositeEdge)
+				treeEdges = removeEdgeInEdges(treeEdges, minWeightUnUsedEdge)
+				treeEdges = removeEdgeInEdges(treeEdges, oppositeEdge)
 			}
 		}
 	}
-	graph.clearVisitHistory()
 	for _, edge := range treeEdges {
 		if edge.isUsed {
 			fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
 		}
 	}
+	graph.clearUseHistory()
 }
 
 func getMinWeightUnUsedEdgeInEdges(edges []*Edge) *Edge {
@@ -175,27 +167,28 @@ func (graph *Graph) hasPathBetweenVertices(v1 *Vertex, v2 *Vertex) bool {
 		} else {
 			for _, e := range vertex.Edges {
 				if e.isUsed && !e.ToVertex.isVisited {
-					queue.Add(e)
+					queue.Add(e.ToVertex)
 				}
 			}
 		}
 		vertex.isVisited = true
 		queue.Remove()
 	}
+	graph.clearVisitHistory()
 	return false
 }
 
-func removeEdgeInEdges(edges []*Edge, e *Edge) {
+func removeEdgeInEdges(edges []*Edge, e *Edge) []*Edge {
 	var es []*Edge
 	for _, x := range edges {
 		if x != e {
 			es = append(es, x)
 		}
 	}
-	edges = es
+	return es
 }
 
-func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex) {
+func (graph *Graph) DijkstraShortestPath(fromVertex *Vertex, toVertex *Vertex) {
 
 }
 
@@ -215,10 +208,23 @@ func (graph *Graph) getVisitedVertices() []*Vertex {
 
 func (graph *Graph) clearVisitHistory() {
 	for _, v := range graph.Vertices {
+		v.isVisited = false
+	}
+}
+
+func (graph *Graph) clearUseHistory() {
+	for _, v := range graph.Vertices {
 		for _, e := range v.Edges {
 			e.isUsed = false
 		}
-		v.isVisited = false
+	}
+}
+
+func convertToVertex(x interface{}) *Vertex {
+	if v, ok := x.(*Vertex); ok {
+		return v
+	} else {
+		panic("Type convertion exception.")
 	}
 }
 
@@ -393,10 +399,9 @@ func main() {
 	fmt.Println("KruskalMinimumSpanningTree:")
 	graph.KruskalMinimumSpanningTree()
 
-	fmt.Println("\nDijkstraShortestPathTree from A to G:")
-	graph.DijkstraShortestPathTree(Va, Vg)
+	fmt.Println("DijkstraShortestPath from A to G:")
+	graph.DijkstraShortestPath(Va, Vg)
 
-	fmt.Println("\nTopologicalSort:")
+	fmt.Println("TopologicalSort:")
 	graph.TopologicalSort()
-	fmt.Println()
 }

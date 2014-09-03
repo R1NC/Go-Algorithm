@@ -45,7 +45,7 @@ func (graph *Graph) BreadFirstTraverse(startVertex *Vertex)
 func (graph *Graph) DepthFirstTraverse(startVertex *Vertex)
 func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex)
 func (graph *Graph) KruskalMinimumSpanningTree()
-func (graph *Graph) DijkstraShortestPathTree(fromVertex *Vertex, toVertex *Vertex)
+func (graph *Graph) DijkstraShortestPath(fromVertex *Vertex, toVertex *Vertex)
 func (graph *Graph) TopologicalSort()
 ```
 Sorting Algorithms
