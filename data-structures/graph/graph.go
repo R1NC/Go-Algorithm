@@ -6,6 +6,8 @@ import (
 	"github.com/RincLiu/Go-Algorithm/data-structures/stack"
 )
 
+const MAX_INT = 999999999
+
 type Vertex struct {
 	Label string
 	Edges []*Edge
@@ -194,10 +196,10 @@ func removeEdgeInEdges(edges []*Edge, e *Edge) []*Edge {
 
 func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex) {
 	distanceMap := make(map[string]int)
-	nextVertexMap := make(map[string]*Vertex)
+	prevVertexMap := make(map[string]*Vertex)
 	for _, v := range graph.Vertices {
-		distanceMap[v.Label] = -1
-		nextVertexMap[v.Label] = nil
+		distanceMap[v.Label] = MAX_INT
+		prevVertexMap[v.Label] = nil
 	}
 	distanceMap[startVertex.Label] = 0
 	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
@@ -205,7 +207,7 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 		if minDistanceVertex == endVertex {
 			break
 		}
-		if distanceMap[minDistanceVertex.Label] == -1 {
+		if distanceMap[minDistanceVertex.Label] == MAX_INT {
 			break
 		}
 		for _, edge := range minDistanceVertex.Edges {
@@ -213,37 +215,98 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 			distance := distanceMap[minDistanceVertex.Label] + edge.Weight
 			if distance < distanceMap[toVertex.Label] {
 				distanceMap[toVertex.Label] = distance
-				nextVertexMap[toVertex.Label] = minDistanceVertex
+				prevVertexMap[toVertex.Label] = minDistanceVertex
 			}
 		}
 		minDistanceVertex.isVisited = true
 	}
 	graph.clearVerticesVisitHistory()
-	for label, vertex := range nextVertexMap {
-		if vertex != nil {
-			fmt.Printf("%s->%s\n", label, vertex.Label)
+	for label, vertex := range prevVertexMap {
+		if vertex == nil {
+			delete(prevVertexMap, label)
 		} else {
-			fmt.Printf("%s has no next node\n", label)
+			if !canGoToStart(vertex, startVertex, prevVertexMap) {
+				delete(prevVertexMap, label)
+			}
+			if !canGoToEnd(graph.getVertexByLabel(label), endVertex, prevVertexMap) {
+				delete(prevVertexMap, label)
+			}
 		}
+	}
+	for label, vertex := range prevVertexMap {
+		fmt.Printf("%s->%s(%d)\n", vertex.Label, label, getWeightByLabelAndPrevVertex(label, vertex))
 	}
 }
 
 func (graph *Graph) getMinDistanceVertex(distanceMap map[string]int) *Vertex {
-	var minDistance int
-	var minDistanceVertex *Vertex
-	for _, v := range graph.Vertices {
+	distance := -1
+	index := 0
+	for i, v := range graph.Vertices {
 		if !v.isVisited {
-			if minDistance == 0 || minDistance > distanceMap[v.Label] {
-				minDistance = distanceMap[v.Label]
-				minDistanceVertex = v
+			if distance == -1 || distance > distanceMap[v.Label] {
+				distance = distanceMap[v.Label]
+				index = i
 			}
 		}
 	}
-	return minDistanceVertex
+	return graph.Vertices[index]
+}
+
+func canGoToStart(v *Vertex, startV *Vertex, prevVertexMap map[string]*Vertex) bool {
+	if v == startV {
+		return true
+	}
+	prevV := prevVertexMap[v.Label]
+	for prevV != nil {
+		if prevV == startV {
+			return true
+		} else {
+			prevV = prevVertexMap[prevV.Label]
+		}
+	}
+	return false
+}
+
+func canGoToEnd(v *Vertex, endV *Vertex, prevVertexMap map[string]*Vertex) bool {
+	if v == endV {
+		return true
+	}
+	prevV := prevVertexMap[endV.Label]
+	for prevV != nil {
+		if prevV == v {
+			return true
+		} else {
+			prevV = prevVertexMap[prevV.Label]
+		}
+	}
+	return false
+}
+
+func (graph *Graph) getVertexByLabel(label string) *Vertex {
+	for _, v := range graph.Vertices {
+		if v.Label == label {
+			return v
+		}
+	}
+	return nil
+}
+
+func getWeightByLabelAndPrevVertex(label string, prevVertex *Vertex) int {
+	for _, edge := range prevVertex.Edges {
+		if edge.ToVertex.Label == label {
+			return edge.Weight
+		}
+	}
+	return -1
 }
 
 func (graph *Graph) TopologicalSort() {
+	//TODO
+}
 
+func (graph *Graph) getZeroInDegreeVertex() *Vertex {
+	//TODO
+	return nil
 }
 
 func (graph *Graph) getVisitedVertices() []*Vertex {
