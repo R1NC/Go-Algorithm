@@ -302,6 +302,15 @@ func getWeightByLabelAndPrevVertex(label string, prevVertex *Vertex) int {
 }
 
 func (graph *Graph) TopologicalSort() {
+	graph.inDegreeMap = make(map[string]int)
+	for _, v := range graph.Vertices {
+		graph.inDegreeMap[v.Label] = 0
+	}
+	for _, v := range graph.Vertices {
+		for _, e := range v.Edges {
+			graph.inDegreeMap[e.ToVertex.Label]++
+		}
+	}
 	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
 		topVertices := graph.getZeroInDegreeVertices()
 		for _, v := range topVertices {
@@ -317,17 +326,6 @@ func (graph *Graph) TopologicalSort() {
 }
 
 func (graph *Graph) getZeroInDegreeVertices() []*Vertex {
-	if graph.inDegreeMap == nil {
-		graph.inDegreeMap = make(map[string]int)
-		for _, v := range graph.Vertices {
-			graph.inDegreeMap[v.Label] = 0
-		}
-		for _, v := range graph.Vertices {
-			for _, e := range v.Edges {
-				graph.inDegreeMap[e.ToVertex.Label]++
-			}
-		}
-	}
 	vertices := []*Vertex{}
 	for _, v := range graph.Vertices {
 		if graph.inDegreeMap[v.Label] == 0 && !v.isVisited {
