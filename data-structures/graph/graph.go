@@ -23,6 +23,7 @@ type Edge struct {
 
 type Graph struct {
 	Vertices []*Vertex
+	inDegreeMap map[string]int
 }
 
 func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
@@ -301,11 +302,50 @@ func getWeightByLabelAndPrevVertex(label string, prevVertex *Vertex) int {
 }
 
 func (graph *Graph) TopologicalSort() {
-	//TODO
+	topVertices := []*Vertex{}
+	queue := &queue.LinkedQueue{}
+	for i := 0; i < len(graph.Vertices); i++ {
+		zeroVertex := graph.getZeroInDegreeVertex()
+		if zeroVertex != nil {
+			queue.Add(zeroVertex)
+		}
+	}
+	for queue.Size() > 0 {
+		vertex := convertToVertex(queue.Peek())
+		queue.Remove()
+		topVertices = append(topVertices, vertex)
+		for _, edge := range vertex.Edges {
+			inDgree := graph.inDegreeMap[edge.ToVertex.Label]
+			graph.inDegreeMap[edge.ToVertex.Label] = inDgree - 1
+			if inDgree == 0 {
+				queue.Add(edge.ToVertex)
+			}
+		}
+	}
+	graph.clearVerticesVisitHistory()
+	for i, v:= range topVertices {
+		fmt.Printf("%d->%s\n", i, v.Label)
+	}
 }
 
 func (graph *Graph) getZeroInDegreeVertex() *Vertex {
-	//TODO
+	if graph.inDegreeMap == nil {
+		graph.inDegreeMap = make(map[string]int)
+		for _, v := range graph.Vertices {
+			graph.inDegreeMap[v.Label] = 0
+		}
+		for _, v := range graph.Vertices {
+			for _, e := range v.Edges {
+				graph.inDegreeMap[e.ToVertex.Label] = graph.inDegreeMap[e.ToVertex.Label] + 1
+			}
+		}
+	}
+	for _, v := range graph.Vertices {
+		if graph.inDegreeMap[v.Label] == 0 && !v.isVisited {
+			v.isVisited = true
+			return v
+		}
+	}
 	return nil
 }
 
@@ -497,24 +537,90 @@ func main() {
 	
 	Vg.Edges = []*Edge{Egd, Ege, Egf}
 
-	graph := &Graph{}
-	graph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
+	unDirectedGraph := &Graph{}
+	unDirectedGraph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
 	
 	fmt.Println("BreadFirstTraverse:")
-	graph.BreadFirstTraverse(Va)
+	unDirectedGraph.BreadFirstTraverse(Va)
 
 	fmt.Println("\nDepthFirstTraverse:")
-	graph.DepthFirstTraverse(Va)
+	unDirectedGraph.DepthFirstTraverse(Va)
 
 	fmt.Println("\nPrimMinimumSpanningTree:")
-	graph.PrimMinimumSpanningTree(Va)
+	unDirectedGraph.PrimMinimumSpanningTree(Va)
 
 	fmt.Println("KruskalMinimumSpanningTree:")
-	graph.KruskalMinimumSpanningTree()
+	unDirectedGraph.KruskalMinimumSpanningTree()
 
 	fmt.Println("DijkstraShortestPath from A to G:")
-	graph.DijkstraShortestPath(Va, Vg)
+	unDirectedGraph.DijkstraShortestPath(Va, Vg)
+
+	Vh := &Vertex{}
+	Vh.Label = "H"
+
+	Vi := &Vertex{}
+	Vi.Label = "I"
+
+	Vj := &Vertex{}
+	Vj.Label = "J"
+
+	Vk := &Vertex{}
+	Vk.Label = "K"
+
+	Vl := &Vertex{}
+	Vl.Label = "L"
+
+	Vm := &Vertex{}
+	Vm.Label = "M"
+
+	Vn := &Vertex{}
+	Vn.Label = "N"
+
+	Ehj := &Edge{}
+	Ehj.FromVertex = Vh
+	Ehj.ToVertex = Vj
+
+	Vh.Edges = []*Edge{Ehj}
+
+	Eij := &Edge{}
+	Eij.FromVertex = Vi
+	Eij.ToVertex = Vj
+
+	Eik := &Edge{}
+	Eik.FromVertex = Vi
+	Eik.ToVertex = Vk
+
+	Eil := &Edge{}
+	Eil.FromVertex = Vi
+	Eil.ToVertex = Vl
+
+	Vi.Edges = []*Edge{Eij, Eik, Eil}
+
+	Ejn := &Edge{}
+	Ejn.FromVertex = Vj
+	Ejn.ToVertex = Vn
+
+	Vj.Edges = []*Edge{Ejn}
+
+	Ekm := &Edge{}
+	Ekm.FromVertex = Vk
+	Ekm.ToVertex = Vm
+
+	Ekn := &Edge{}
+	Ekn.FromVertex = Vk
+	Ekn.ToVertex = Vn
+
+	Vk.Edges = []*Edge{Ekm, Ekn}
+
+	Elm := &Edge{}
+	Elm.FromVertex = Vl
+	Elm.ToVertex = Vm
+
+	Vl.Edges = []*Edge{Elm}
+
+	directedGraph := &Graph{}
+	directedGraph.Vertices = []*Vertex{Vh, Vi, Vj, Vk, Vl, Vm, Vn}
 
 	fmt.Println("TopologicalSort:")
-	graph.TopologicalSort()
+	directedGraph.TopologicalSort()
 }
