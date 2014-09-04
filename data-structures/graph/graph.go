@@ -192,8 +192,54 @@ func removeEdgeInEdges(edges []*Edge, e *Edge) []*Edge {
 	return es
 }
 
-func (graph *Graph) DijkstraShortestPath(fromVertex *Vertex, toVertex *Vertex) {
+func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex) {
+	distanceMap := make(map[string]int)
+	nextVertexMap := make(map[string]*Vertex)
+	for _, v := range graph.Vertices {
+		distanceMap[v.Label] = -1
+		nextVertexMap[v.Label] = nil
+	}
+	distanceMap[startVertex.Label] = 0
+	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
+		minDistanceVertex := graph.getMinDistanceVertex(distanceMap)
+		if minDistanceVertex == endVertex {
+			break
+		}
+		if distanceMap[minDistanceVertex.Label] == -1 {
+			break
+		}
+		for _, edge := range minDistanceVertex.Edges {
+			toVertex := edge.ToVertex
+			distance := distanceMap[minDistanceVertex.Label] + edge.Weight
+			if distance < distanceMap[toVertex.Label] {
+				distanceMap[toVertex.Label] = distance
+				nextVertexMap[toVertex.Label] = minDistanceVertex
+			}
+		}
+		minDistanceVertex.isVisited = true
+	}
+	graph.clearVerticesVisitHistory()
+	for label, vertex := range nextVertexMap {
+		if vertex != nil {
+			fmt.Printf("%s->%s\n", label, vertex.Label)
+		} else {
+			fmt.Printf("%s has no next node\n", label)
+		}
+	}
+}
 
+func (graph *Graph) getMinDistanceVertex(distanceMap map[string]int) *Vertex {
+	var minDistance int
+	var minDistanceVertex *Vertex
+	for _, v := range graph.Vertices {
+		if !v.isVisited {
+			if minDistance == 0 || minDistance > distanceMap[v.Label] {
+				minDistance = distanceMap[v.Label]
+				minDistanceVertex = v
+			}
+		}
+	}
+	return minDistanceVertex
 }
 
 func (graph *Graph) TopologicalSort() {
