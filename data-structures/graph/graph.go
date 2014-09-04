@@ -42,7 +42,7 @@ func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 		}	
 		queue.Remove()
 	}
-	graph.clearVisitHistory()
+	graph.clearVerticesVisitHistory()
 }
 
 func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
@@ -68,7 +68,7 @@ func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
 			stack.Pop()
 		}
 	}
-	graph.clearVisitHistory()
+	graph.clearVerticesVisitHistory()
 }
 
 func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex) {
@@ -81,7 +81,7 @@ func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex) {
 		}
 		minWeightEdge.ToVertex.isVisited = true
 	}
-	graph.clearVisitHistory()
+	graph.clearVerticesVisitHistory()
 	for _, edge := range treeEdges {
 		fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
 	}	
@@ -126,9 +126,13 @@ func (graph *Graph) KruskalMinimumSpanningTree() {
 	for _, edge := range treeEdges {
 		if edge.isUsed {
 			fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
+			opEdge := getOppositeEdgeInEdges(treeEdges, edge)
+			if opEdge != nil && opEdge.isUsed {
+				opEdge.isUsed = false
+			}
 		}
 	}
-	graph.clearUseHistory()
+	graph.clearEdgesUseHistory()
 }
 
 func getMinWeightUnUsedEdgeInEdges(edges []*Edge) *Edge {
@@ -174,7 +178,7 @@ func (graph *Graph) hasPathBetweenVertices(v1 *Vertex, v2 *Vertex) bool {
 		vertex.isVisited = true
 		queue.Remove()
 	}
-	graph.clearVisitHistory()
+	graph.clearVerticesVisitHistory()
 	return false
 }
 
@@ -206,13 +210,13 @@ func (graph *Graph) getVisitedVertices() []*Vertex {
 	return vertices
 }
 
-func (graph *Graph) clearVisitHistory() {
+func (graph *Graph) clearVerticesVisitHistory() {
 	for _, v := range graph.Vertices {
 		v.isVisited = false
 	}
 }
 
-func (graph *Graph) clearUseHistory() {
+func (graph *Graph) clearEdgesUseHistory() {
 	for _, v := range graph.Vertices {
 		for _, e := range v.Edges {
 			e.isUsed = false
