@@ -302,33 +302,21 @@ func getWeightByLabelAndPrevVertex(label string, prevVertex *Vertex) int {
 }
 
 func (graph *Graph) TopologicalSort() {
-	topVertices := []*Vertex{}
-	queue := &queue.LinkedQueue{}
-	for i := 0; i < len(graph.Vertices); i++ {
-		zeroVertex := graph.getZeroInDegreeVertex()
-		if zeroVertex != nil {
-			queue.Add(zeroVertex)
-		}
-	}
-	for queue.Size() > 0 {
-		vertex := convertToVertex(queue.Peek())
-		queue.Remove()
-		topVertices = append(topVertices, vertex)
-		for _, edge := range vertex.Edges {
-			inDgree := graph.inDegreeMap[edge.ToVertex.Label]
-			graph.inDegreeMap[edge.ToVertex.Label] = inDgree - 1
-			if inDgree == 0 {
-				queue.Add(edge.ToVertex)
+	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
+		topVertices := graph.getZeroInDegreeVertices()
+		for _, v := range topVertices {
+			fmt.Printf("%s ", v.Label)
+			v.isVisited = true
+			for _, edge := range v.Edges {
+				graph.inDegreeMap[edge.ToVertex.Label]--
 			}
 		}
+		fmt.Println()
 	}
 	graph.clearVerticesVisitHistory()
-	for i, v:= range topVertices {
-		fmt.Printf("%d->%s\n", i, v.Label)
-	}
 }
 
-func (graph *Graph) getZeroInDegreeVertex() *Vertex {
+func (graph *Graph) getZeroInDegreeVertices() []*Vertex {
 	if graph.inDegreeMap == nil {
 		graph.inDegreeMap = make(map[string]int)
 		for _, v := range graph.Vertices {
@@ -336,17 +324,17 @@ func (graph *Graph) getZeroInDegreeVertex() *Vertex {
 		}
 		for _, v := range graph.Vertices {
 			for _, e := range v.Edges {
-				graph.inDegreeMap[e.ToVertex.Label] = graph.inDegreeMap[e.ToVertex.Label] + 1
+				graph.inDegreeMap[e.ToVertex.Label]++
 			}
 		}
 	}
+	vertices := []*Vertex{}
 	for _, v := range graph.Vertices {
 		if graph.inDegreeMap[v.Label] == 0 && !v.isVisited {
-			v.isVisited = true
-			return v
+			vertices = append(vertices, v)
 		}
 	}
-	return nil
+	return vertices
 }
 
 func (graph *Graph) getVisitedVertices() []*Vertex {
