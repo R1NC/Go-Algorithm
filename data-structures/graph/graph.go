@@ -1,4 +1,4 @@
-package main
+package graph
 
 import (
 	"fmt"
@@ -367,6 +367,7 @@ func convertToVertex(x interface{}) *Vertex {
 	}
 }
 
+/*
 func main() {
 	Va := &Vertex{}
 	Va.Label = "A"
@@ -610,3 +611,4 @@ func main() {
 	fmt.Println("TopologicalSort:")
 	directedGraph.TopologicalSort()
 }
+*/
