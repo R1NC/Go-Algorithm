@@ -31,6 +31,13 @@ func (queue *LinkedQueue) Peek() interface{}
 ```
 Nonlinear Data Structures
 ========================
+* [LinkedHashMap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/hash-map/linked-hash-map.go)
+```go
+func (hashMap *LinkedHashMap) Put(key int, value interface{}) 
+func (hashMap *LinkedHashMap) Get(key int) interface{}
+func (hashMap *LinkedHashMap) Remove(key int)
+func (hashMap *LinkedHashMap) Clear()
+```
 * [BinaryTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-tree.go)
 ```go
 func (tree *BinaryTree) Add(value int)
