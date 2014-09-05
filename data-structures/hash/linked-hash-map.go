@@ -1,6 +1,9 @@
-package hash
+package main
 
-import "github.com/RincLiu/Go-Algorithm/data-structures/stack"
+import (
+	"github.com/RincLiu/Go-Algorithm/data-structures/stack"
+	"fmt"
+)
 
 const TABLE_SIZE = 128
 
@@ -21,14 +24,18 @@ func (hashMap *LinkedHashMap) Put(key int, value interface{}) {
 	if e == nil {
 		hashMap.table[hash] = &entry{key, value, nil}
 	} else {
-		for e != nil {
+		for e.next != nil {
 			if e.key == key {
 				e.value = value
 				return
 			}
 			e = e.next
 		}
-		e = &entry{key, value, nil}
+		if e.key == key {
+			e.value = value
+		} else {
+			e.next = &entry{key, value, nil}
+		}
 	}
 }
 
@@ -52,17 +59,17 @@ func (hashMap *LinkedHashMap) Remove(key int) {
 	hash := getHashValue(key)
 	e := hashMap.table[hash]
 	if e != nil {
-		for e != nil {
+		for e.next != nil {
 			if e.key == key {
-				nextEntry := e.next 
-				e.value = nextEntry.value
-				e.next = nextEntry.next
-				nextEntry.key = 0
-				nextEntry.value = nil
-				nextEntry.next = nil
+				e.key = e.next.key
+				e.value = e.next.value
+				e.next = e.next.next
 				return
 			}
 			e = e.next
+		}
+		if e.key == key {
+			e = nil
 		}
 	}
 }
@@ -111,7 +118,6 @@ func (hashMap *LinkedHashMap) checkTable() {
 	}
 }
 
-/*
 func main() {
 	hashMap := &LinkedHashMap{}
 	hashMap.Put(9, "android")
@@ -129,9 +135,22 @@ func main() {
 	fmt.Printf("99:%v\n", hashMap.Get(99))
 	fmt.Printf("227:%v\n", hashMap.Get(227))
 	fmt.Printf("355:%v\n", hashMap.Get(355))
+	hashMap.Remove(9)
+	fmt.Println("Remove 9...")
+	fmt.Printf("9:%v\n", hashMap.Get(9))
+	hashMap.Put(9, "Android")
+	fmt.Println("Put 9...")
+	fmt.Printf("9:%v\n", hashMap.Get(9))
 	hashMap.Remove(227)
+	fmt.Println("Remove 227...")
+	fmt.Printf("227:%v\n", hashMap.Get(227))
+	hashMap.Put(227, "Symbian")
+	fmt.Println("Put 227...")
 	fmt.Printf("227:%v\n", hashMap.Get(227))
 	hashMap.Clear()
+	fmt.Println("Clear...")
+	fmt.Printf("137:%v\n", hashMap.Get(137))
+	hashMap.Put(137, "iOS")
+	fmt.Println("Put 137...")
 	fmt.Printf("137:%v\n", hashMap.Get(137))
 }
-*/
