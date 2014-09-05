@@ -1,9 +1,6 @@
-package main 
+package hash
 
-import (
-	"github.com/RincLiu/Go-Algorithm/data-structures/stack"
-	"fmt"
-)
+import "github.com/RincLiu/Go-Algorithm/data-structures/stack"
 
 const TABLE_SIZE = 128
 
@@ -63,7 +60,7 @@ func (hashMap *LinkedHashMap) Remove(key int) {
 				nextEntry.key = 0
 				nextEntry.value = nil
 				nextEntry.next = nil
-				break
+				return
 			}
 			e = e.next
 		}
@@ -114,6 +111,7 @@ func (hashMap *LinkedHashMap) checkTable() {
 	}
 }
 
+/*
 func main() {
 	hashMap := &LinkedHashMap{}
 	hashMap.Put(9, "android")
@@ -136,3 +134,4 @@ func main() {
 	hashMap.Clear()
 	fmt.Printf("137:%v\n", hashMap.Get(137))
 }
+*/
