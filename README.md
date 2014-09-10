@@ -1,4 +1,4 @@
-Linear Data Structures
+Data Structures
 ======================
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go):
 ```go
@@ -36,8 +36,6 @@ func (hashMap *LinkedHashMap) Get(key int) interface{}
 func (hashMap *LinkedHashMap) Remove(key int)
 func (hashMap *LinkedHashMap) Clear()
 ```
-Nonlinear Data Structures
-=========================
 * [BinarySearchTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-search-tree.go)
 ```go
 func (tree *BinarySearchTree) Add(value int)
@@ -46,9 +44,12 @@ func (tree *BinarySearchTree) Search(value int) *BinarySearchTree
 func (tree *BinarySearchTree) Traverse()
 func (tree *BinarySearchTree) TraverseByLevel()
 ```
-* [Heap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/heap.go)
+* [BinaryHeap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/heap/binary-heap.go)
 ```go
-
+func (heap *BinaryHeap) Build(dataSet int[])
+func (heap *BinaryHeap) Size() int
+func (heap *BinaryHeap) Add(data int)
+func (heap *BinaryHeap) RemoveMinimum() int
 ```
 * [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go):
 ```go
