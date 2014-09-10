@@ -5,17 +5,17 @@ import (
     "github.com/RincLiu/Go-Algorithm/data-structures/queue"
 )
 
-type BinaryTree struct {
+type BinarySearchTree struct {
 	Value int
-	LeftChild *BinaryTree
-	RightChild *BinaryTree
+	LeftChild *BinarySearchTree
+	RightChild *BinarySearchTree
 }
 
-func (tree *BinaryTree) Add(value int) {
+func (tree *BinarySearchTree) Add(value int) {
 	if tree.Value == 0 {
 		tree.Value = value
-		tree.LeftChild = &BinaryTree{}
-		tree.RightChild = &BinaryTree{}
+		tree.LeftChild = &BinarySearchTree{}
+		tree.RightChild = &BinarySearchTree{}
 	} else {
 		if value < tree.Value {
 			tree.LeftChild.Add(value)
@@ -25,7 +25,7 @@ func (tree *BinaryTree) Add(value int) {
 	}
 }
 
-func (tree *BinaryTree) Remove(value int) {
+func (tree *BinarySearchTree) Remove(value int) {
 	t := tree.Search(value)
 	if t == nil {
 		panic("This value is not found.")
@@ -50,13 +50,13 @@ func (tree *BinaryTree) Remove(value int) {
 	}
 }
 
-func destroy(tree *BinaryTree) {
+func destroy(tree *BinarySearchTree) {
 	tree.Value = 0
 	tree.LeftChild = nil
 	tree.RightChild = nil
 }
 
-func (tree *BinaryTree) getMin() *BinaryTree {
+func (tree *BinarySearchTree) getMin() *BinarySearchTree {
 	if tree.LeftChild.Value == 0 {
 		return tree
 	} else {
@@ -64,14 +64,14 @@ func (tree *BinaryTree) getMin() *BinaryTree {
 	}
 }
 
-func (tree *BinaryTree) replaceWith(t *BinaryTree) {
+func (tree *BinarySearchTree) replaceWith(t *BinarySearchTree) {
 	tree.Value = t.Value
 	tree.LeftChild = t.LeftChild
 	tree.RightChild = t.RightChild
 	destroy(t)
 }
 
-func (tree *BinaryTree) Search(value int) *BinaryTree {
+func (tree *BinarySearchTree) Search(value int) *BinarySearchTree {
 	if tree == nil {
 		return nil
 	}
@@ -86,7 +86,7 @@ func (tree *BinaryTree) Search(value int) *BinaryTree {
 	}
 }
 
-func (tree *BinaryTree) Traverse() {
+func (tree *BinarySearchTree) Traverse() {
 	fmt.Printf("%d", tree.Value)
 	if tree.LeftChild == nil && tree.RightChild == nil {
 		return
@@ -98,19 +98,19 @@ func (tree *BinaryTree) Traverse() {
 	fmt.Print(")")
 }
 
-func convertToBinaryTree(x interface{}) *BinaryTree {
-    if v, ok := x.(*BinaryTree); ok {
+func convertToBinarySearchTree(x interface{}) *BinarySearchTree {
+    if v, ok := x.(*BinarySearchTree); ok {
         return v
     } else {
         panic("Type convertion exception.")
     }
 }
 
-func (tree *BinaryTree) TraverseByLevel() {
+func (tree *BinarySearchTree) TraverseByLevel() {
     queue := &queue.LinkedQueue{}
     queue.Add(tree)
     for queue.Size() > 0 {
-        t := convertToBinaryTree(queue.Peek())
+        t := convertToBinarySearchTree(queue.Peek())
         if t.LeftChild != nil {
             queue.Add(t.LeftChild)
         }
@@ -124,7 +124,7 @@ func (tree *BinaryTree) TraverseByLevel() {
 
 /*
 func main() {
-	tree := &BinaryTree{}
+	tree := &BinarySearchTree{}
 	tree.Add(3)
 	tree.Add(2)
 	tree.Add(5)

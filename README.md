@@ -38,13 +38,17 @@ func (hashMap *LinkedHashMap) Get(key int) interface{}
 func (hashMap *LinkedHashMap) Remove(key int)
 func (hashMap *LinkedHashMap) Clear()
 ```
-* [BinaryTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-tree.go)
+* [BinarySearchTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-search-tree.go)
 ```go
-func (tree *BinaryTree) Add(value int)
-func (tree *BinaryTree) Remove(value int)
-func (tree *BinaryTree) Search(value int) *BinaryTree
-func (tree *BinaryTree) Traverse()
-func (tree *BinaryTree) TraverseByLevel()
+func (tree *BinarySearchTree) Add(value int)
+func (tree *BinarySearchTree) Remove(value int)
+func (tree *BinarySearchTree) Search(value int) *BinarySearchTree
+func (tree *BinarySearchTree) Traverse()
+func (tree *BinarySearchTree) TraverseByLevel()
+```
+* [Heap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/heap.go)
+```go
+
 ```
 * [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go)
 ```go
