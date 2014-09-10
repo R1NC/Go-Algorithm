@@ -29,15 +29,15 @@ func (queue *LinkedQueue) Add(value interface{})
 func (queue *LinkedQueue) Remove()
 func (queue *LinkedQueue) Peek() interface{}
 ```
-Nonlinear Data Structures
-========================
-* [LinkedHashMap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/hash/linked-hash-map.go)
+* [LinkedHashMap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/hash/linked-hash-map.go):
 ```go
 func (hashMap *LinkedHashMap) Put(key int, value interface{}) 
 func (hashMap *LinkedHashMap) Get(key int) interface{}
 func (hashMap *LinkedHashMap) Remove(key int)
 func (hashMap *LinkedHashMap) Clear()
 ```
+Nonlinear Data Structures
+=========================
 * [BinarySearchTree](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/tree/binary-search-tree.go)
 ```go
 func (tree *BinarySearchTree) Add(value int)
@@ -50,7 +50,7 @@ func (tree *BinarySearchTree) TraverseByLevel()
 ```go
 
 ```
-* [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go)
+* [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go):
 ```go
 func (graph *Graph) BreadFirstTraverse(startVertex *Vertex)
 func (graph *Graph) DepthFirstTraverse(startVertex *Vertex)
@@ -67,15 +67,15 @@ func SimpleBubbleSort(array []int)
 func FlagSwapBubbleSort(array []int)
 func FlagSwapPositionBubbleSort(array []int)
 ```
-* [InsertSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/insert-sort.go)
+* [InsertSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/insert-sort.go):
 ```go
 func InsertSort(array []int)
 ```
-* [SelectSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/select-sort.go)
+* [SelectSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/select-sort.go):
 ```go
 func SelectSort(array []int)
 ```
-* [QuickSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/quick-sort.go)
+* [QuickSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/quick-sort.go):
 ```go
 func QucikSort(array []int)
 ```
