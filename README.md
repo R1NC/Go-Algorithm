@@ -46,7 +46,6 @@ func (tree *BinarySearchTree) TraverseByLevel()
 ```
 * [BinaryHeap](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/heap/binary-heap.go)
 ```go
-func (heap *BinaryHeap) Build(dataSet int[])
 func (heap *BinaryHeap) Size() int
 func (heap *BinaryHeap) Add(data int)
 func (heap *BinaryHeap) RemoveMinimum() int
