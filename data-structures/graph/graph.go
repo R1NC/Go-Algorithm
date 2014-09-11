@@ -1,4 +1,4 @@
-package graph
+package tree
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 	startVertex.isVisited = true
 	queue := &queue.LinkedQueue{}
 	queue.Add(startVertex)
-	for queue.Size() > 0 {
+	for queue.Size() > 0 {// Visit the nearest vertices that haven't been visited.
 		vertex := convertToVertex(queue.Peek())
 		for _, edge := range vertex.Edges {
 			if !edge.ToVertex.isVisited {
@@ -56,7 +56,7 @@ func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
 	startVertex.isVisited = true
 	stack := &stack.LinkedStack{}
 	stack.Push(startVertex)
-	for stack.Size() > 0 {
+	for stack.Size() > 0 {// Visit the the vertices by edges that hasn't been visited, until the path ends.
 		vertex := convertToVertex(stack.Peek())
 		hasAddedNewVertex := false
 		for _, edge := range vertex.Edges {
@@ -120,7 +120,7 @@ func (graph *Graph) KruskalMinimumSpanningTree() {
 				minWeightUnUsedEdge.isUsed = true
 				oppositeEdge.isUsed = true
 				treeCount--
-			} else {
+			} else {// There's a ring, remove the edge hand its opposite edge.
 				treeEdges = removeEdgeInEdges(treeEdges, minWeightUnUsedEdge)
 				treeEdges = removeEdgeInEdges(treeEdges, oppositeEdge)
 			}
@@ -130,7 +130,7 @@ func (graph *Graph) KruskalMinimumSpanningTree() {
 		if edge.isUsed {
 			fmt.Printf("%s->%s(%d)\n", edge.FromVertex.Label, edge.ToVertex.Label, edge.Weight)
 			opEdge := getOppositeEdgeInEdges(treeEdges, edge)
-			if opEdge != nil && opEdge.isUsed {
+			if opEdge != nil && opEdge.isUsed {// Filter opposite edges.
 				opEdge.isUsed = false
 			}
 		}
@@ -204,28 +204,28 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 	}
 	distanceMap[startVertex.Label] = 0
 	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
-		minDistanceVertex := graph.getMinDistanceVertex(distanceMap)
-		if minDistanceVertex == endVertex {
+		nearestVertex := graph.getNearestVertex(startVertex, distanceMap)
+		if nearestVertex == endVertex {//Reached EndVertex.
 			break
 		}
-		if distanceMap[minDistanceVertex.Label] == MAX_INT {
+		if distanceMap[nearestVertex.Label] == MAX_INT {//There's no path between two vertices.
 			break
 		}
-		for _, edge := range minDistanceVertex.Edges {
+		for _, edge := range nearestVertex.Edges {// Update distance map.
 			toVertex := edge.ToVertex
-			distance := distanceMap[minDistanceVertex.Label] + edge.Weight
+			distance := distanceMap[nearestVertex.Label] + edge.Weight
 			if distance < distanceMap[toVertex.Label] {
 				distanceMap[toVertex.Label] = distance
-				prevVertexMap[toVertex.Label] = minDistanceVertex
+				prevVertexMap[toVertex.Label] = nearestVertex
 			}
 		}
-		minDistanceVertex.isVisited = true
+		nearestVertex.isVisited = true
 	}
 	graph.clearVerticesVisitHistory()
 	for label, vertex := range prevVertexMap {
-		if vertex == nil {
+		if vertex == nil {// Filter StartVertex.
 			delete(prevVertexMap, label)
-		} else {
+		} else {// Filter the vertices that can't reach StartVertex and EndVertex.
 			if !canGoToStart(vertex, startVertex, prevVertexMap) {
 				delete(prevVertexMap, label)
 			}
@@ -239,9 +239,9 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 	}
 }
 
-func (graph *Graph) getMinDistanceVertex(distanceMap map[string]int) *Vertex {
+func (graph *Graph) getNearestVertex(startVertex *Vertex, distanceMap map[string]int) *Vertex {
 	distance := -1
-	index := 0
+	index := -1
 	for i, v := range graph.Vertices {
 		if !v.isVisited {
 			if distance == -1 || distance > distanceMap[v.Label] {
@@ -250,7 +250,11 @@ func (graph *Graph) getMinDistanceVertex(distanceMap map[string]int) *Vertex {
 			}
 		}
 	}
-	return graph.Vertices[index]
+	if index == -1 {// First scanning, return StartVertex.
+		return startVertex
+	} else {
+		return graph.Vertices[index]
+	}
 }
 
 func canGoToStart(v *Vertex, startV *Vertex, prevVertexMap map[string]*Vertex) bool {
@@ -313,7 +317,7 @@ func (graph *Graph) TopologicalSort() {
 	}
 	for len(graph.getVisitedVertices()) < len(graph.Vertices) {
 		topVertices := graph.getZeroInDegreeVertices()
-		for _, v := range topVertices {
+		for _, v := range topVertices {// Visit the zero-in-degree-vertex, and decrease the next vertices' in-degree.
 			fmt.Printf("%s ", v.Label)
 			v.isVisited = true
 			for _, edge := range v.Edges {
