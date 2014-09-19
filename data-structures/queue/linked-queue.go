@@ -47,17 +47,3 @@ func (queue *LinkedQueue) Remove() {
 	queue.size--
 	first_node = nil
 }
-
-/*
-func main() {
-	queue := &LinkedQueue{}
-	queue.Add("A")
-	queue.Add("B")
-	queue.Add("C")
-	queue.Add("D")
-	for queue.size > 0 {
-        	fmt.Printf("%s\n", queue.Peek())
-        	queue.Remove()
-	}
-}
-*/

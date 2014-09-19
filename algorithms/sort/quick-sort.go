@@ -43,12 +43,3 @@ func QuickSort(array []int) {
 	checkArray(array)
 	partitionRecursion(array, 0, len(array) - 1)
 }
-
-/*
-func main() {
-	array := []int{5, 3, 2, 6, 4, 1}
-	fmt.Println("Initial array:", array)
-	QuickSort(array)
-	fmt.Println("QuickSort:", array)
-}
-*/

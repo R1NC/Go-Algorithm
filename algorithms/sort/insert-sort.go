@@ -17,12 +17,3 @@ func InsertSort(array []int) {
 		}
 	}
 }
-
-/*
-func main() {
-	array := []int{5, 3, 2, 6, 4, 1}
-	fmt.Println("Initial array:", array)
-	InsertSort(array)
-	fmt.Println("InsertSort:", array)
-}
-*/

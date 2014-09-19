@@ -39,18 +39,3 @@ func (stack *LinkedStack) Peek() interface{} {
 	}
 	return stack.top.value
 }
-
-/*
-func main() {
-	stack := &LinkedStack{}
-	stack.Push("iOS")
-	stack.Push("Android")
-	stack.Push("WindowsPhone")
-	stack.Push("Symbian")
-	stack.Push("BalckBerry")
-	for stack.Size() > 0 {
-		fmt.Printf("%s\n", stack.Peek())
-		stack.Pop()
-	}
-}
-*/
