@@ -98,11 +98,11 @@ func (list *LinkedList) GetLast() interface{} {
 }
 
 func (list *LinkedList) Add(value interface{}, index int) {
-	if index < 0 || (index > list.size && list.size > 0) {
+	if index < 0 || (index >= list.size && list.size > 0) {
 		panic("Invalid index.")
 	} else if index == 0 {
 		list.AddToFirst(value)
-	} else if index == list.size {
+	} else if index == list.size - 1 {
 		list.AddToLast(value)
 	} else {
 		if list.head == nil {
@@ -152,12 +152,12 @@ func (list *LinkedList) AddToLast(value interface{}) {
 }
 
 func (list *LinkedList) RemoveAt(index int) {
-	if index < 0 || (index > list.size && list.size > 0) {
+	if index < 0 || (index >= list.size && list.size > 0) {
 		panic("Invalid index.")
 	}
 	if index == 0 {
 		list.RemoveFirst()
-	} else if index == list.size {
+	} else if index == list.size - 1 {
 		list.RemoveLast()
 	} else {
 		if list.size == 0 {
