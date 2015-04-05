@@ -15,9 +15,7 @@ func (stack *LinkedStack) Size() int {
 }
 
 func (stack *LinkedStack) Push(value interface{}) {
-	new_node := &node{value, stack.top}
-	stack.top = new_node
-	new_node = nil
+	stack.top = &node{value, stack.top}
 	stack.size++
 }
 
