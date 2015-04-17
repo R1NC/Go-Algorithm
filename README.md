@@ -65,8 +65,8 @@ func (heap *BinaryHeap) RemoveMinimum() int {}
 * [Graph](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/graph/graph.go):
 
 ```go
-func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {}
-func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {}
+func (graph *Graph) BreadthFirstSearch(startVertex *Vertex) {}
+func (graph *Graph) DepthFirstSearch(startVertex *Vertex) {}
 func (graph *Graph) PrimMinimumSpanningTree(startVertex *Vertex) {}
 func (graph *Graph) KruskalMinimumSpanningTree() {}
 func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex) {}

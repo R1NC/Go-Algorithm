@@ -26,7 +26,7 @@ type Graph struct {
 	inDegreeMap map[string]int
 }
 
-func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
+func (graph *Graph) BreadthFirstSearch(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
 		panic("Graph has no vertex.")
 	}
@@ -48,7 +48,7 @@ func (graph *Graph) BreadFirstTraverse(startVertex *Vertex) {
 	graph.clearVerticesVisitHistory()
 }
 
-func (graph *Graph) DepthFirstTraverse(startVertex *Vertex) {
+func (graph *Graph) DepthFirstSearch(startVertex *Vertex) {
 	if graph.Vertices == nil || len(graph.Vertices) == 0 {
 		panic("Graph has no vertex.")
 	}       

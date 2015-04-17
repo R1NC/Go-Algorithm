@@ -164,11 +164,11 @@ func Test_graph(t *testing.T) {
 	unDirectedGraph := &Graph{}
 	unDirectedGraph.Vertices = []*Vertex{Va, Vb, Vc, Vd, Ve, Vf, Vg}
 	
-	fmt.Println("BreadFirstTraverse:")
-	unDirectedGraph.BreadFirstTraverse(Va)
+	fmt.Println("BreadthFirstSearch:")
+	unDirectedGraph.BreadthFirstSearch(Va)
 
-	fmt.Println("\nDepthFirstTraverse:")
-	unDirectedGraph.DepthFirstTraverse(Va)
+	fmt.Println("\nDepthFirstSearch:")
+	unDirectedGraph.DepthFirstSearch(Va)
 
 	fmt.Println("\nPrimMinimumSpanningTree:")
 	unDirectedGraph.PrimMinimumSpanningTree(Va)
