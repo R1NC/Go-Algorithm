@@ -1,5 +1,5 @@
-Data Structures
-======================
+####Data Structures:
+
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go):
 
 ```go
@@ -73,8 +73,8 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 func (graph *Graph) TopologicalSort() {}
 ```
 
-Sorting Algorithms
-==================
+####Sorting Algorithms:
+
 * [BubbleSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/bubble-sort.go):
 
 ```go
@@ -101,8 +101,8 @@ func SelectSort(array []int) {}
 func QucikSort(array []int) {}
 ```
 
-Searching Algorithms
-=================
+####Searching Algorithms:
+
 * [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
 
 ```go
