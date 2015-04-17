@@ -109,3 +109,12 @@ func QucikSort(array []int) {}
 func RecursionBinarySearch(sorted_array []int, target int) int {}
 func NonRecursionBinarySearch(sorted_array []int, target int) int {}
 ```
+
+####String Algorithms:
+
+* [Single Pattern Search](https://github.com/RincLiu/Go-Algorithm/blob/master/string/single-pattern-search.go):
+
+```go
+func KMPSearch(source string, pattern string) int {}
+func BMSearch(source string, pattern string) int {}
+```
