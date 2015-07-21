@@ -15,32 +15,32 @@ func spiralTraverse(m [][]string) {
 		fmt.Printf("%s\n", m[row][column])
 		visited++
 		switch dir%4 {
-		case 0: //TOP
+		case 0: //Top path
 			if column < rowSize - row - 1 {
-				column++
+				column++ //Go right
 			} else {
-				row++
+				row++ //Turn down
 				dir++
 			}
-		case 1: //RIGHT
+		case 1: //Right path
 			if row < column {
-				row++
+				row++ //Go down
 			} else {
-				column--
+				column-- //Turn left
 				dir++
 			}
-		case 2: //BOTTOM
+		case 2: //Bottom path
 			if column > rowSize - row - 1 {
-				column--
+				column-- //Go left
 			} else {
-				row--
+				row-- //Turn up
 				dir++
 			}
-		case 3: //LEFT
+		case 3: //Left path
 			if row > column + 1 {
-				row--
+				row-- //Go up
 			} else {
-				column++
+				column++ //Turn right
 				dir++
 			}
 		}
