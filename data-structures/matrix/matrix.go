@@ -12,7 +12,7 @@ func spiralTraverse(m [][]string) {
 	row := 0
 	column := 0
 	for visited < rowSize * columnSize {
-		fmt.Printf("%d/%d: %s\n", visited, dir%4, m[row][column])
+		fmt.Printf("%s\n", m[row][column])
 		visited++
 		switch dir%4 {
 		case 0:
