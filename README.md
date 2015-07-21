@@ -1,5 +1,11 @@
 ####Data Structures:
 
+* [Matrix](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/matrix/matrix.go):
+
+```go
+func spiralTraverse(m [][]string) {}
+```
+
 * [LinkedList](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/list/linked-list.go):
 
 ```go
