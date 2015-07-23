@@ -48,5 +48,6 @@ func generateNextPatternIndexArray(pattern string) []int {
 }
 
 func BMSearch(source string, pattern string) int {
+	//TODO
 	return -1
 }
