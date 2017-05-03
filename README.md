@@ -1,4 +1,4 @@
-#### Data Structures:
+### Data Structures:
 
 * [Matrix](https://github.com/RincLiu/Go-Algorithm/blob/master/data-structures/matrix/matrix.go):
 
@@ -79,7 +79,7 @@ func (graph *Graph) DijkstraShortestPath(startVertex *Vertex, endVertex *Vertex)
 func (graph *Graph) TopologicalSort() {}
 ```
 
-#### Sorting Algorithms:
+### Sorting Algorithms:
 
 * [BubbleSort](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/sort/bubble-sort.go):
 
@@ -107,7 +107,7 @@ func SelectSort(array []int) {}
 func QucikSort(array []int) {}
 ```
 
-#### Searching Algorithms:
+### Searching Algorithms:
 
 * [BinarySearch](https://github.com/RincLiu/Go-Algorithm/blob/master/algorithms/search/binary-search.go):
 
@@ -116,7 +116,7 @@ func RecursionBinarySearch(sorted_array []int, target int) int {}
 func NonRecursionBinarySearch(sorted_array []int, target int) int {}
 ```
 
-#### String Algorithms:
+### String Algorithms:
 
 * [Single Pattern Search](https://github.com/RincLiu/Go-Algorithm/blob/master/string/single-pattern-search.go):
 
