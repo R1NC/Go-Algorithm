@@ -6,7 +6,7 @@ package sort
 func InsertSort(array []int) {
 	checkArray(array)
 	// The array is divided into two parts: sorted-part and unsorted-part. 
-	// At the beginning, sorted-part conteins the first element, and unsorted-part contains the rest.
+	// At the beginning, sorted-part contains the first element, and unsorted-part contains the rest.
 	for i := 1; i < len(array); i++ {
 		// For every element in unsorted-part,
 		for j := i; j > 0; j-- {
